@@ -1,3 +1,4 @@
+import AnimatedBackground from "../components/AnimatedBackground";
 import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
 import SectionHeading from "../components/SectionHeading";
@@ -7,28 +8,41 @@ import Footer from "../components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-metax-black text-metax-text-light">
-      {/* Header */}
-      <Header />
+    <div className="min-h-screen bg-metax-black text-metax-text-light relative overflow-x-hidden">
+      {/* Animated Background */}
+      <AnimatedBackground />
+
+      {/* Content */}
+      <div className="relative z-10">
+        {/* Header */}
+        <Header />
 
       {/* Hero Section */}
       <HeroSection />
 
-      {/* About Company Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-3">
-          <SectionHeading>About Company</SectionHeading>
-          <div className="mt-10">
-            <p className="text-metax-text-muted text-lg leading-relaxed max-w-4xl">
-              MetaX Coin represents the future of decentralized finance,
-              offering innovative solutions for cryptocurrency enthusiasts and
-              investors worldwide. Our platform combines cutting-edge blockchain
-              technology with user-friendly interfaces to make digital asset
-              management accessible to everyone.
-            </p>
+        {/* About Company Section */}
+        <section className="py-20">
+          <div className="container mx-auto px-3">
+            <SectionHeading>About Company</SectionHeading>
+            <div className="mt-10">
+              <p className="text-metax-text-muted text-lg leading-relaxed max-w-4xl mb-8">
+                MetaX Coin represents the future of decentralized finance,
+                offering innovative solutions for cryptocurrency enthusiasts and
+                investors worldwide. Our platform combines cutting-edge blockchain
+                technology with user-friendly interfaces to make digital asset
+                management accessible to everyone.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                <button className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-6 py-3 rounded-md transition-all duration-200 font-medium">
+                  Learn More
+                </button>
+                <button className="border border-metax-border-gold text-metax-gold hover:bg-metax-gold hover:text-metax-black px-6 py-3 rounded-md transition-all duration-200 font-medium">
+                  Our Team
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
       {/* Why Choose Us Section */}
       <section className="py-20 bg-gradient-to-r from-metax-black to-metax-dark-section">
@@ -106,21 +120,32 @@ const Index = () => {
         </div>
       </section>
 
-      {/* BSCScan Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-3">
-          <SectionHeading>What is BscScan?</SectionHeading>
-          <div className="mt-10">
-            <p className="text-metax-text-muted text-lg leading-relaxed max-w-4xl">
-              BscScan is the leading Binance Smart Chain explorer that allows
-              you to explore and search the Binance Smart Chain for
-              transactions, addresses, tokens, prices and other activities. It
-              provides complete transparency and verification for all MetaX Coin
-              transactions.
-            </p>
+        {/* BSCScan Section */}
+        <section className="py-20">
+          <div className="container mx-auto px-3">
+            <SectionHeading>What is BscScan?</SectionHeading>
+            <div className="mt-10">
+              <p className="text-metax-text-muted text-lg leading-relaxed max-w-4xl mb-8">
+                BscScan is the leading Binance Smart Chain explorer that allows
+                you to explore and search the Binance Smart Chain for
+                transactions, addresses, tokens, prices and other activities. It
+                provides complete transparency and verification for all MetaX Coin
+                transactions.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a
+                  href="#"
+                  className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-6 py-3 rounded-md transition-all duration-200 font-medium inline-block text-center"
+                >
+                  View on BSCScan
+                </a>
+                <button className="border border-metax-border-gold text-metax-gold hover:bg-metax-gold hover:text-metax-black px-6 py-3 rounded-md transition-all duration-200 font-medium">
+                  Contract Address
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
       {/* MXC Section */}
       <section className="py-20 bg-metax-dark-section">
@@ -166,9 +191,18 @@ const Index = () => {
                 <div className="text-metax-text-muted">MetaX Coin</div>
               </div>
             </div>
+            <div className="text-center mt-12">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-8 py-4 rounded-md transition-all duration-200 font-semibold text-lg">
+                  Join Presale
+                </button>
+                <button className="border border-metax-border-gold text-metax-gold hover:bg-metax-gold hover:text-metax-black px-8 py-4 rounded-md transition-all duration-200 font-semibold text-lg">
+                  Token Calculator
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
       {/* Token Sale Section */}
       <section className="py-20">
@@ -244,8 +278,9 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <Footer />
+        {/* Footer */}
+        <Footer />
+      </div>
     </div>
   );
 };

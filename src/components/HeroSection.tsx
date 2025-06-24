@@ -8,12 +8,22 @@ const HeroSection = () => {
             <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold text-metax-gold leading-tight mb-8">
               The Next Evolution in Crypto: Meta X Coin
             </h1>
-            <p className="text-base md:text-lg text-metax-text-muted leading-relaxed max-w-2xl">
+            <p className="text-base md:text-lg text-metax-text-muted leading-relaxed max-w-2xl mb-8">
               Meta X Coin where earning money from the comfort of your home is
               made simple and risk-free. Join thousands of investors who have
               already discovered the power of decentralized finance and
               blockchain technology.
             </p>
+
+            {/* Hero CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 mt-8">
+              <button className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-8 py-4 rounded-md transition-all duration-200 font-semibold text-lg">
+                Buy MXC Now
+              </button>
+              <button className="border border-metax-border-gold text-metax-gold hover:bg-metax-gold hover:text-metax-black px-8 py-4 rounded-md transition-all duration-200 font-semibold text-lg">
+                Read Whitepaper
+              </button>
+            </div>
           </div>
 
           {/* Right Column - Visual Space */}
