@@ -26,120 +26,15 @@ const Index = () => {
         <section id="about" className="py-20">
           <div className="container mx-auto px-3">
             <SectionHeading>About Company</SectionHeading>
-            <div className="mt-10">
-              <p className="text-metax-text-muted text-lg leading-relaxed max-w-4xl mb-8">
-                MetaX Coin represents the future of decentralized finance,
-                offering innovative solutions for cryptocurrency enthusiasts and
-                investors worldwide. Our platform combines cutting-edge
-                blockchain technology with user-friendly interfaces to make
-                digital asset management accessible to everyone.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                <a
-                  href="https://metaxcoin.cloud/Register"
-                  className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-6 py-3 rounded-md transition-all duration-200 font-medium inline-block text-center"
-                >
-                  Learn More
-                </a>
-                <button className="border border-metax-border-gold text-metax-gold hover:bg-metax-gold hover:text-metax-black px-6 py-3 rounded-md transition-all duration-200 font-medium">
-                  Our Team
-                </button>
-              </div>
-            </div>
+            <div className="mt-10">{/* Empty content row like original */}</div>
           </div>
         </section>
 
         {/* Platform Section */}
-        <section id="platform" className="py-20 bg-metax-dark-section">
+        <section id="platform" className="py-20">
           <div className="container mx-auto px-3">
             <SectionHeading>Platform</SectionHeading>
-            <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h3 className="text-2xl font-semibold text-metax-gold mb-6">
-                  Next-Generation Trading Platform
-                </h3>
-                <p className="text-metax-text-muted text-lg leading-relaxed mb-6">
-                  Experience the future of cryptocurrency trading with our
-                  advanced platform. Built with cutting-edge technology and
-                  designed for both beginners and professional traders.
-                </p>
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-metax-gold rounded-full"></div>
-                    <span className="text-metax-text-light">
-                      Advanced charting tools
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-metax-gold rounded-full"></div>
-                    <span className="text-metax-text-light">
-                      Real-time market data
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-metax-gold rounded-full"></div>
-                    <span className="text-metax-text-light">
-                      Automated trading bots
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-metax-gold rounded-full"></div>
-                    <span className="text-metax-text-light">
-                      Multi-asset portfolio management
-                    </span>
-                  </div>
-                </div>
-                <div className="mt-8">
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <a
-                      href="https://metaxcoin.cloud/Register"
-                      className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-6 py-3 rounded-md transition-all duration-200 font-medium text-center"
-                    >
-                      Try Platform
-                    </a>
-                    <button className="border border-metax-border-gold text-metax-gold hover:bg-metax-gold hover:text-metax-black px-6 py-3 rounded-md transition-all duration-200 font-medium">
-                      Watch Demo
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className="text-center lg:text-right">
-                <div className="inline-block p-8 bg-gradient-to-r from-amber-900/20 to-metax-gold-dark/20 rounded-lg border border-metax-border-gold floating-animation">
-                  <div className="grid grid-cols-2 gap-4 text-center">
-                    <div>
-                      <div className="text-2xl font-bold text-metax-gold">
-                        24/7
-                      </div>
-                      <div className="text-metax-text-muted text-sm">
-                        Trading
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-metax-gold">
-                        99.9%
-                      </div>
-                      <div className="text-metax-text-muted text-sm">
-                        Uptime
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-metax-gold">
-                        0.1%
-                      </div>
-                      <div className="text-metax-text-muted text-sm">Fees</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-metax-gold">
-                        50+
-                      </div>
-                      <div className="text-metax-text-muted text-sm">
-                        Assets
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div className="mt-10">{/* Empty content row like original */}</div>
           </div>
         </section>
 
@@ -229,28 +124,7 @@ const Index = () => {
         <section className="py-20">
           <div className="container mx-auto px-3">
             <SectionHeading>What is BscScan?</SectionHeading>
-            <div className="mt-10">
-              <p className="text-metax-text-muted text-lg leading-relaxed max-w-4xl mb-8">
-                BscScan is the leading Binance Smart Chain explorer that allows
-                you to explore and search the Binance Smart Chain for
-                transactions, addresses, tokens, prices and other activities. It
-                provides complete transparency and verification for all MetaX
-                Coin transactions.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a
-                  href="https://bscscan.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-6 py-3 rounded-md transition-all duration-200 font-medium inline-block text-center"
-                >
-                  View on BSCScan
-                </a>
-                <button className="border border-metax-border-gold text-metax-gold hover:bg-metax-gold hover:text-metax-black px-6 py-3 rounded-md transition-all duration-200 font-medium">
-                  Contract Address
-                </button>
-              </div>
-            </div>
+            <div className="mt-10">{/* Empty content row like original */}</div>
           </div>
         </section>
 
@@ -287,19 +161,6 @@ const Index = () => {
                     <span className="text-metax-text-light font-semibold">
                       18
                     </span>
-                  </div>
-                </div>
-                <div className="mt-8">
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <a
-                      href="https://metaxcoin.cloud/Register"
-                      className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-6 py-3 rounded-md transition-all duration-200 font-medium inline-block text-center"
-                    >
-                      Buy MXC
-                    </a>
-                    <button className="border border-metax-border-gold text-metax-gold hover:bg-metax-gold hover:text-metax-black px-6 py-3 rounded-md transition-all duration-200 font-medium">
-                      Add to Wallet
-                    </button>
                   </div>
                 </div>
               </div>
@@ -352,19 +213,6 @@ const Index = () => {
                   <div className="text-metax-text-muted text-sm">$10M USD</div>
                 </div>
               </div>
-              <div className="text-center mt-12">
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a
-                    href="https://metaxcoin.cloud/Register"
-                    className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-8 py-4 rounded-md transition-all duration-200 font-semibold text-lg transform hover:scale-105 inline-block text-center"
-                  >
-                    Join Presale
-                  </a>
-                  <button className="border border-metax-border-gold text-metax-gold hover:bg-metax-gold hover:text-metax-black px-8 py-4 rounded-md transition-all duration-200 font-semibold text-lg transform hover:scale-105">
-                    Token Calculator
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
         </section>
@@ -381,26 +229,7 @@ const Index = () => {
         <section id="contact" className="py-20">
           <div className="container mx-auto px-3">
             <SectionHeading>Contact Us</SectionHeading>
-            <div className="mt-10 max-w-2xl mx-auto text-center">
-              <p className="text-metax-text-muted text-lg leading-relaxed mb-8">
-                Have questions about MetaX Coin? We're here to help. Reach out
-                to our team for support, partnerships, or general inquiries.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="mailto:info@metaxcoin.cloud"
-                  className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-8 py-3 rounded-md transition-all duration-200 font-medium transform hover:scale-105"
-                >
-                  Email Us
-                </a>
-                <a
-                  href="#"
-                  className="border border-metax-border-gold text-metax-gold hover:bg-metax-gold hover:text-metax-black px-8 py-3 rounded-md transition-all duration-200 font-medium transform hover:scale-105"
-                >
-                  Join Telegram
-                </a>
-              </div>
-            </div>
+            <div className="mt-10">{/* Empty content row like original */}</div>
           </div>
         </section>
 
