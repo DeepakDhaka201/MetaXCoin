@@ -16,9 +16,11 @@ const HeroSection = () => {
             </p>
           </div>
 
-          {/* Right Column - Empty for now */}
+          {/* Right Column - Visual Space */}
           <div className="flex justify-center items-center pt-12 lg:pt-37">
-            {/* This would be where hero image/graphic would go */}
+            <div className="w-full max-w-md h-64 bg-gradient-to-r from-amber-900/10 to-metax-gold-dark/10 rounded-lg border border-metax-border-gold/30 flex items-center justify-center">
+              <div className="text-metax-gold text-4xl font-bold">MXC</div>
+            </div>
           </div>
         </div>
       </div>
