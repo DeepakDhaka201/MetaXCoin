@@ -104,6 +104,10 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-metax-black text-metax-text-light;
+  }
+
+  html {
+    @apply bg-metax-black;
   }
 }
