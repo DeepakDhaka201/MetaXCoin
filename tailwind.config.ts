@@ -62,6 +62,16 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // MetaX Coin custom colors
+        metax: {
+          black: "hsl(var(--metax-black))",
+          gold: "hsl(var(--metax-gold))",
+          "gold-dark": "hsl(var(--metax-gold-dark))",
+          "text-light": "hsl(var(--metax-text-light))",
+          "text-muted": "hsl(var(--metax-text-muted))",
+          "dark-section": "hsl(var(--metax-dark-section))",
+          "border-gold": "hsl(var(--metax-border-gold))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
