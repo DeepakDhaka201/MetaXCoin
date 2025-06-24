@@ -1,4 +1,5 @@
 import AnimatedBackground from "../components/AnimatedBackground";
+import EnhancedAnimations from "../components/EnhancedAnimations";
 import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
 import SectionHeading from "../components/SectionHeading";
@@ -11,6 +12,7 @@ const Index = () => {
     <div className="min-h-screen bg-metax-black text-metax-text-light relative overflow-x-hidden">
       {/* Animated Background */}
       <AnimatedBackground />
+      <EnhancedAnimations />
 
       {/* Content */}
       <div className="relative z-10">

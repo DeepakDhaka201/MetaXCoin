@@ -5,40 +5,37 @@ const RoadmapSection = () => {
     {
       date: "April 2025",
       title: "Crypto ICO Platform",
-      description:
-        "Launch of our innovative ICO platform with advanced security features",
+      description: "Launch of our innovative ICO platform",
     },
     {
       date: "August 2025",
       title: "Project Audits",
-      description:
-        "Comprehensive security audits by leading blockchain security firms",
+      description: "Comprehensive security audits",
     },
     {
       date: "December 2025",
       title: "Exchange Listings",
-      description: "Major cryptocurrency exchange listings and partnerships",
+      description: "Major exchange listings",
     },
     {
       date: "April 2026",
       title: "DeFi Integration",
-      description:
-        "Integration with major DeFi protocols and yield farming opportunities",
+      description: "DeFi protocol integration",
     },
     {
       date: "August 2026",
-      title: "Mobile App Launch",
-      description: "Official MetaX mobile application for iOS and Android",
+      title: "Mobile Application",
+      description: "iOS and Android app launch",
     },
     {
       date: "December 2026",
       title: "Staking Platform",
-      description: "Launch of staking platform with competitive rewards",
+      description: "Staking rewards system",
     },
     {
       date: "April 2027",
       title: "Global Expansion",
-      description: "Worldwide expansion and regulatory compliance achievements",
+      description: "Worldwide market expansion",
     },
   ];
 
@@ -47,40 +44,41 @@ const RoadmapSection = () => {
       <div className="container mx-auto px-3">
         <SectionHeading>Roadmap</SectionHeading>
 
-        <div className="relative">
-          {/* Horizontal scrolling container */}
-          <div className="overflow-x-auto pb-6">
-            <div className="flex space-x-8 min-w-max">
-              {roadmapItems.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col items-center min-w-[280px]"
-                >
-                  {/* Roadmap dot */}
-                  <div className="w-4 h-4 bg-metax-gold rounded-full mb-4 relative">
-                    {/* Connect line */}
-                    {index < roadmapItems.length - 1 && (
-                      <div className="absolute top-2 left-8 w-64 h-0.5 bg-metax-gold-dark"></div>
-                    )}
-                  </div>
+        <div className="relative mt-16">
+          {/* Timeline line */}
+          <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-full max-w-6xl h-0.5 bg-gradient-to-r from-transparent via-metax-gold to-transparent"></div>
 
+          {/* Roadmap items */}
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+            {roadmapItems.map((item, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-center text-center group"
+              >
+                {/* Roadmap dot with animation */}
+                <div className="w-6 h-6 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full mb-4 relative z-10 shadow-lg border-2 border-metax-gold group-hover:scale-110 transition-transform duration-300">
+                  <div className="absolute inset-0 bg-metax-gold rounded-full animate-pulse opacity-50"></div>
+                </div>
+
+                {/* Card */}
+                <div className="bg-gradient-to-b from-metax-dark-section/50 to-metax-black/30 p-6 rounded-lg border border-metax-border-gold/30 hover:border-metax-gold/60 transition-all duration-300 backdrop-blur-sm group-hover:transform group-hover:scale-105">
                   {/* Date */}
-                  <h3 className="text-lg md:text-xl font-semibold text-metax-gold mb-2">
+                  <h3 className="text-base font-semibold text-metax-gold mb-2">
                     {item.date}
                   </h3>
 
                   {/* Title */}
-                  <h4 className="text-metax-text-light font-medium mb-2 text-center">
+                  <h4 className="text-metax-text-light font-medium mb-2 text-sm">
                     {item.title}
                   </h4>
 
                   {/* Description */}
-                  <p className="text-metax-text-muted text-sm text-center leading-relaxed">
+                  <p className="text-metax-text-muted text-xs leading-relaxed">
                     {item.description}
                   </p>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -12,6 +12,13 @@ const Header = () => {
     { name: "Contact", href: "#contact" },
   ];
 
+  const handleNavClick = (href: string) => {
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm">
       <div className="container mx-auto px-3">
@@ -28,13 +35,13 @@ const Header = () => {
             {/* Navigation Menu */}
             <div className="flex items-center space-x-6">
               {navItems.map((item) => (
-                <a
+                <button
                   key={item.name}
-                  href={item.href}
+                  onClick={() => handleNavClick(item.href)}
                   className="text-metax-text-light hover:text-metax-gold transition-colors duration-200 text-base font-medium"
                 >
                   {item.name}
-                </a>
+                </button>
               ))}
             </div>
 
@@ -85,14 +92,16 @@ const Header = () => {
           <div className="lg:hidden bg-metax-black/95 backdrop-blur-sm border-t border-metax-border-gold/30">
             <div className="px-3 py-4 space-y-4">
               {navItems.map((item) => (
-                <a
+                <button
                   key={item.name}
-                  href={item.href}
-                  className="block text-metax-text-light hover:text-metax-gold transition-colors duration-200 text-base font-medium py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => {
+                    handleNavClick(item.href);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="block text-metax-text-light hover:text-metax-gold transition-colors duration-200 text-base font-medium py-2 text-left w-full"
                 >
                   {item.name}
-                </a>
+                </button>
               ))}
               <div className="flex flex-col space-y-2 pt-4">
                 <a

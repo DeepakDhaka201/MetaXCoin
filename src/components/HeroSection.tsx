@@ -29,10 +29,21 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right Column - Visual Space */}
+          {/* Right Column - Crypto Image */}
           <div className="flex justify-center items-center pt-12 lg:pt-37">
-            <div className="w-full max-w-md h-64 bg-gradient-to-r from-amber-900/10 to-metax-gold-dark/10 rounded-lg border border-metax-border-gold/30 flex items-center justify-center">
-              <div className="text-metax-gold text-4xl font-bold">MXC</div>
+            <div className="relative">
+              <img
+                src="https://images.pexels.com/photos/7788009/pexels-photo-7788009.jpeg"
+                alt="Meta X Coin - Cryptocurrency Trading"
+                className="w-full max-w-md h-80 object-cover rounded-lg shadow-2xl border border-metax-border-gold/30"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-metax-black/60 via-transparent to-transparent rounded-lg"></div>
+              <div className="absolute bottom-4 left-4 right-4 text-center">
+                <div className="text-metax-gold text-2xl font-bold mb-2">
+                  MXC
+                </div>
+                <div className="text-metax-text-light text-sm">Meta X Coin</div>
+              </div>
             </div>
           </div>
         </div>
