@@ -48,13 +48,13 @@ const Header = () => {
             {/* Buttons */}
             <div className="flex items-center space-x-4 ml-8">
               <a
-                href="https://metaxcoin.cloud/Login"
+                href="/login"
                 className="border border-metax-border-gold text-metax-gold hover:bg-metax-gold hover:text-metax-black px-5 py-2 rounded-md transition-all duration-200 font-medium inline-block"
               >
                 Login
               </a>
               <a
-                href="https://metaxcoin.cloud/Register"
+                href="/register"
                 className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-5 py-2 rounded-md transition-all duration-200 font-medium inline-block"
               >
                 Sign Up
@@ -105,13 +105,13 @@ const Header = () => {
               ))}
               <div className="flex flex-col space-y-2 pt-4">
                 <a
-                  href="https://metaxcoin.cloud/Login"
+                  href="/login"
                   className="border border-metax-border-gold text-metax-gold hover:bg-metax-gold hover:text-metax-black px-5 py-2 rounded-md transition-all duration-200 font-medium text-center"
                 >
                   Login
                 </a>
                 <a
-                  href="https://metaxcoin.cloud/Register"
+                  href="/register"
                   className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-5 py-2 rounded-md transition-all duration-200 font-medium text-center"
                 >
                   Sign Up

@@ -18,7 +18,7 @@ const HeroSection = () => {
             {/* Hero CTAs */}
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                href="https://metaxcoin.cloud/Register"
+                href="/register"
                 className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-8 py-4 rounded-md transition-all duration-200 font-semibold text-lg text-center"
               >
                 Get Started
