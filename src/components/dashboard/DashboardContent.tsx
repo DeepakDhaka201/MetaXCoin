@@ -238,33 +238,48 @@ const DashboardContent = () => {
           <h3 className="text-white text-lg font-semibold mb-6">
             Profile Info
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-6">
             <div className="space-y-4">
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <span className="text-metax-text-muted">Name</span>
-                <span className="text-metax-gold">👤 John</span>
+                <span className="text-green-400 flex items-center">
+                  <span className="mr-2">👤</span>
+                  John
+                </span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <span className="text-metax-text-muted">UserName</span>
-                <span className="text-metax-gold">👤 John99272</span>
+                <span className="text-green-400 flex items-center">
+                  <span className="mr-2">👤</span>
+                  John99272
+                </span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <span className="text-metax-text-muted">My Sponsor</span>
-                <span className="text-metax-gold">🌟 Abhi29</span>
+                <span className="text-green-400 flex items-center">
+                  <span className="mr-2">🌟</span>
+                  Abhi29
+                </span>
               </div>
-            </div>
-            <div className="space-y-4">
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <span className="text-metax-text-muted">ID Status</span>
-                <span className="text-red-400">🔴 In-Active</span>
+                <span className="text-red-400 flex items-center">
+                  <span className="mr-2">🔴</span>
+                  In-Active
+                </span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <span className="text-metax-text-muted">Joining Date</span>
-                <span className="text-blue-400">📅 2025-05-31</span>
+                <span className="text-blue-400 flex items-center">
+                  <span className="mr-2">📅</span>
+                  2025-05-31
+                </span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <span className="text-metax-text-muted">Joining Link</span>
-                <span className="text-red-400 cursor-pointer">Copy</span>
+                <span className="text-red-400 cursor-pointer hover:text-red-300 transition-colors">
+                  Copy
+                </span>
               </div>
             </div>
           </div>
@@ -274,19 +289,19 @@ const DashboardContent = () => {
             <div className="text-metax-text-muted mb-4">
               📱 For Technical Support message on WhatsApp
             </div>
-            <div className="flex justify-center space-x-4">
-              <div className="w-10 h-10 bg-metax-gold rounded-full flex items-center justify-center cursor-pointer">
-                <span className="text-metax-black">📘</span>
-              </div>
-              <div className="w-10 h-10 bg-metax-gold rounded-full flex items-center justify-center cursor-pointer">
-                <span className="text-metax-black">🔍</span>
-              </div>
-              <div className="w-10 h-10 bg-metax-gold rounded-full flex items-center justify-center cursor-pointer">
-                <span className="text-metax-black">📷</span>
-              </div>
-              <div className="w-10 h-10 bg-metax-gold rounded-full flex items-center justify-center cursor-pointer">
-                <span className="text-metax-black">🐦</span>
-              </div>
+            <div className="flex justify-center space-x-3">
+              <button className="w-10 h-10 bg-metax-gold hover:bg-metax-gold-dark rounded-full flex items-center justify-center cursor-pointer transition-colors">
+                <span className="text-metax-black font-bold">f</span>
+              </button>
+              <button className="w-10 h-10 bg-metax-gold hover:bg-metax-gold-dark rounded-full flex items-center justify-center cursor-pointer transition-colors">
+                <span className="text-metax-black font-bold">G</span>
+              </button>
+              <button className="w-10 h-10 bg-metax-gold hover:bg-metax-gold-dark rounded-full flex items-center justify-center cursor-pointer transition-colors">
+                <span className="text-metax-black font-bold">📷</span>
+              </button>
+              <button className="w-10 h-10 bg-metax-gold hover:bg-metax-gold-dark rounded-full flex items-center justify-center cursor-pointer transition-colors">
+                <span className="text-metax-black font-bold">🐦</span>
+              </button>
             </div>
           </div>
         </div>

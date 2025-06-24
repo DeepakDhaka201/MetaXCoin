@@ -131,31 +131,74 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
 
   return (
     <div
-      className={`fixed left-0 top-0 h-full w-80 bg-metax-black z-40 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+      className={`fixed left-0 top-0 h-full bg-metax-black z-40 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+      style={{ width: "320px" }}
     >
       {/* Sidebar Content */}
       <nav className="h-full overflow-y-auto">
-        <ul className="flex flex-col pt-4 bg-metax-black">
+        <ul
+          className="flex flex-col bg-metax-black"
+          style={{ paddingTop: "15px" }}
+        >
           {menuItems.map((item, index) => (
-            <li key={index} className="flex flex-col px-8 relative">
+            <li
+              key={index}
+              className="flex flex-col relative"
+              style={{ paddingLeft: "30px", paddingRight: "30px" }}
+            >
               {item.expandable ? (
                 <>
                   <button
                     onClick={() => toggleMenu(item.name)}
-                    className="flex items-center text-left w-full text-gray-400 hover:text-white transition-colors duration-500 py-5 px-6 rounded-xl"
+                    className="flex items-center text-left w-full transition-colors duration-500 rounded-xl"
+                    style={{
+                      borderBottomLeftRadius: "12px",
+                      borderBottomRightRadius: "12px",
+                      borderTopLeftRadius: "12px",
+                      borderTopRightRadius: "12px",
+                      color: "rgb(179, 179, 179)",
+                      paddingBottom: "20px",
+                      paddingLeft: "24px",
+                      paddingRight: "24px",
+                      paddingTop: "20px",
+                      position: "relative",
+                      transitionDuration: "0.5s",
+                    }}
                   >
-                    <i className="inline-block text-2xl font-light pr-4 relative top-0 align-middle">
+                    <i
+                      className="inline-block text-2xl font-light relative align-middle"
+                      style={{ paddingRight: "16px", top: "0px" }}
+                    >
                       {item.icon}
                     </i>
                     <span className="inline">{item.name}</span>
                   </button>
                   {expandedMenus[item.name] && (
-                    <ul className="pb-2 pt-2 relative transition-all duration-200 ease-in-out z-1">
+                    <ul
+                      className="relative transition-all duration-200 ease-in-out"
+                      style={{
+                        display: "block",
+                        paddingBottom: "8px",
+                        paddingTop: "8px",
+                        zIndex: "1",
+                      }}
+                    >
                       {item.subItems?.map((subItem, subIndex) => (
                         <li key={subIndex} className="list-item relative">
                           <a
                             href={subItem.href}
-                            className="block text-gray-400 hover:text-white transition-colors duration-500 py-2 px-18 text-sm relative"
+                            className="block transition-colors duration-500 relative"
+                            style={{
+                              color: "rgb(179, 179, 179)",
+                              fontSize: "15px",
+                              lineHeight: "22.5px",
+                              paddingBottom: "8px",
+                              paddingLeft: "72px",
+                              paddingRight: "30px",
+                              paddingTop: "8px",
+                              position: "relative",
+                              transitionDuration: "0.5s",
+                            }}
                           >
                             {subItem.name}
                           </a>
@@ -167,13 +210,45 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
               ) : (
                 <a
                   href={item.href}
-                  className={`flex items-center py-5 px-6 rounded-xl transition-colors duration-500 relative ${
+                  className={`flex items-center transition-colors duration-500 relative rounded-xl ${
                     item.active
-                      ? "bg-gradient-to-r from-amber-900 to-metax-gold-dark text-white font-semibold"
+                      ? "text-white font-semibold"
                       : "text-gray-400 hover:text-white"
                   }`}
+                  style={{
+                    ...(item.active
+                      ? {
+                          backgroundImage:
+                            "linear-gradient(135deg, rgb(23, 19, 10) 5%, rgb(213, 175, 83) 100%)",
+                          borderBottomLeftRadius: "12px",
+                          borderBottomRightRadius: "12px",
+                          borderTopLeftRadius: "12px",
+                          borderTopRightRadius: "12px",
+                          fontWeight: "600",
+                        }
+                      : {
+                          borderBottomLeftRadius: "12px",
+                          borderBottomRightRadius: "12px",
+                          borderTopLeftRadius: "12px",
+                          borderTopRightRadius: "12px",
+                          color: "rgb(179, 179, 179)",
+                        }),
+                    paddingBottom: "20px",
+                    paddingLeft: "24px",
+                    paddingRight: "24px",
+                    paddingTop: "20px",
+                    position: "relative",
+                    transitionDuration: "0.5s",
+                  }}
                 >
-                  <i className="inline-block text-2xl font-light pr-4 relative top-0 align-middle">
+                  <i
+                    className="inline-block text-2xl font-light relative align-middle"
+                    style={{
+                      paddingRight: "16px",
+                      top: "0px",
+                      fontWeight: item.active ? "300" : "300",
+                    }}
+                  >
                     {item.icon}
                   </i>
                   <span

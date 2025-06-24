@@ -9,96 +9,137 @@ const DashboardHeader = ({ onToggleSidebar }: DashboardHeaderProps) => {
 
   return (
     <header
-      className="fixed top-0 left-80 right-0 z-50 bg-metax-black h-22 flex items-center px-6"
-      style={{ height: "88px" }}
+      className="fixed top-0 bg-metax-black z-50 transition-all duration-200"
+      style={{
+        height: "88px",
+        paddingLeft: "345px",
+        width: "100%",
+      }}
     >
-      <div className="flex items-center justify-between w-full h-full px-20">
+      <div className="flex items-center justify-between h-full px-20">
         {/* Dashboard Title */}
         <div className="flex items-center h-full">
-          <h1 className="text-white text-3xl font-semibold leading-11">
-            Dashboard
-          </h1>
+          <h1 className="text-white text-3xl font-semibold">Dashboard</h1>
         </div>
 
         {/* Right Side - Notification & Profile */}
-        <div className="flex items-center h-full">
+        <ul className="flex items-center h-full">
           {/* Notification */}
-          <div className="flex items-center h-full relative mr-5">
+          <li className="flex items-center h-full relative">
             <a
               href="https://metaxcoin.cloud/Notification"
-              className="bg-metax-dark-section border border-gray-600 rounded-xl px-4 py-4 text-white text-lg transition-colors duration-150 relative"
+              className="bg-metax-dark-section border border-gray-600 border-solid rounded-xl px-4 py-4 text-white text-lg transition-all duration-150 relative"
+              style={{
+                borderBottomLeftRadius: "12px",
+                borderBottomRightRadius: "12px",
+                borderTopLeftRadius: "12px",
+                borderTopRightRadius: "12px",
+              }}
             >
-              <i className="text-2xl">🔔</i>
+              <i className="text-2xl inline">🔔</i>
               {/* Notification Badge */}
-              <div className="absolute -top-1 -right-1 w-6 h-6 bg-pink-300 border-4 border-metax-dark-section rounded-full"></div>
+              <div
+                className="absolute rounded-full"
+                style={{
+                  backgroundColor: "rgb(216, 185, 195)",
+                  borderBottom: "4px solid rgb(20, 17, 46)",
+                  borderLeft: "4px solid rgb(20, 17, 46)",
+                  borderRight: "4px solid rgb(20, 17, 46)",
+                  borderTop: "4px solid rgb(20, 17, 46)",
+                  borderRadius: "56px",
+                  height: "24px",
+                  right: "-4px",
+                  top: "-4px",
+                  width: "24px",
+                }}
+              ></div>
             </a>
-          </div>
+          </li>
 
           {/* Profile Dropdown */}
-          <div className="flex items-center h-full pl-5 relative">
+          <li className="flex items-center h-full pl-5 relative">
             <button
               onClick={() => setShowProfileMenu(!showProfileMenu)}
-              className="flex items-center border-l border-gray-600 text-white text-lg transition-colors duration-150 ml-4 pl-8"
+              className="flex items-center text-white text-lg transition-all duration-150 ml-4 pl-8"
+              style={{
+                borderLeft: "1px solid rgb(42, 40, 51)",
+              }}
             >
               <img
                 src="https://metaxcoin.cloud/public/newpanel/images/profile/pic1.jpg"
                 alt="Profile"
-                className="w-14 h-14 rounded-xl mr-5"
+                className="rounded-xl mr-5"
+                style={{
+                  height: "55px",
+                  width: "55px",
+                  borderRadius: "12px",
+                }}
               />
-              <div className="text-left">
-                <div className="font-semibold">John99272</div>
-                <small className="text-gray-400 text-sm">John</small>
+              <div className="text-left pl-5">
+                <span className="font-semibold text-white block">
+                  John99272
+                </span>
+                <small className="text-gray-400 text-sm block">John</small>
               </div>
             </button>
 
             {/* Profile Dropdown Menu */}
             {showProfileMenu && (
-              <div className="absolute top-full right-0 mt-2 w-50 bg-metax-dark-section rounded-xl border border-gray-500 py-4 z-10">
+              <div
+                className="absolute bg-metax-dark-section rounded-xl border-none overflow-hidden py-4 z-10"
+                style={{
+                  borderBottomLeftRadius: "12px",
+                  borderBottomRightRadius: "12px",
+                  borderTopLeftRadius: "12px",
+                  borderTopRightRadius: "12px",
+                  display: "block",
+                  minWidth: "200px",
+                  position: "absolute",
+                  right: "0px",
+                  top: "100%",
+                }}
+              >
                 <a
                   href="https://metaxcoin.cloud/My-Profile"
-                  className="flex items-center px-6 py-2 text-gray-300 hover:text-white transition-colors"
+                  className="flex items-center px-6 py-2 text-gray-300 hover:text-white transition-colors clear-both text-left whitespace-nowrap w-full"
                 >
                   <svg
-                    className="w-4 h-4 mr-2"
+                    className="w-4 h-4 mr-2 text-blue-600 inline"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
-                    />
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                     <circle cx="12" cy="7" r="4" />
                   </svg>
-                  Profile
+                  <span className="inline ml-2">Profile</span>
                 </a>
                 <a
                   href="https://metaxcoin.cloud/Logout"
-                  className="flex items-center px-6 py-2 text-red-400 hover:text-red-300 transition-colors"
+                  className="flex items-center px-6 py-2 text-red-400 hover:text-red-300 transition-colors clear-both text-left whitespace-nowrap w-full"
                 >
                   <svg
-                    className="w-4 h-4 mr-2"
+                    className="w-4 h-4 mr-2 text-red-500 inline"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
-                    />
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
                     <polyline points="16 17 21 12 16 7" />
                     <line x1="21" y1="12" x2="9" y2="12" />
                   </svg>
-                  Logout
+                  <span className="inline ml-2">Logout</span>
                 </a>
               </div>
             )}
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
     </header>
   );
