@@ -147,9 +147,9 @@ const Index = () => {
           </div>
         </section>
 
-      {/* MXC Section */}
-      <section className="py-20 bg-metax-dark-section">
-        <div className="container mx-auto px-3">
+        {/* MXC Section */}
+        <section className="py-20 bg-metax-dark-section">
+          <div className="container mx-auto px-3">
           <SectionHeading>MXC</SectionHeading>
           <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
