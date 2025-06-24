@@ -4,12 +4,12 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    "Home",
-    "About",
-    "Platform",
-    "Tokens",
-    "Roadmap",
-    "Contact",
+    { name: "Home", href: "#home" },
+    { name: "About", href: "#about" },
+    { name: "Platform", href: "#platform" },
+    { name: "Tokens", href: "#tokens" },
+    { name: "Roadmap", href: "#roadmap" },
+    { name: "Contact", href: "#contact" },
   ];
 
   return (
@@ -29,23 +29,29 @@ const Header = () => {
             <div className="flex items-center space-x-6">
               {navItems.map((item) => (
                 <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
+                  key={item.name}
+                  href={item.href}
                   className="text-metax-text-light hover:text-metax-gold transition-colors duration-200 text-base font-medium"
                 >
-                  {item}
+                  {item.name}
                 </a>
               ))}
             </div>
 
             {/* Buttons */}
             <div className="flex items-center space-x-4 ml-8">
-              <button className="border border-metax-border-gold text-metax-gold hover:bg-metax-gold hover:text-metax-black px-5 py-2 rounded-md transition-all duration-200 font-medium">
+              <a
+                href="https://metaxcoin.cloud/Login"
+                className="border border-metax-border-gold text-metax-gold hover:bg-metax-gold hover:text-metax-black px-5 py-2 rounded-md transition-all duration-200 font-medium inline-block"
+              >
                 Login
-              </button>
-              <button className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-5 py-2 rounded-md transition-all duration-200 font-medium">
+              </a>
+              <a
+                href="https://metaxcoin.cloud/Register"
+                className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-5 py-2 rounded-md transition-all duration-200 font-medium inline-block"
+              >
                 Sign Up
-              </button>
+              </a>
             </div>
           </nav>
 
@@ -80,21 +86,27 @@ const Header = () => {
             <div className="px-3 py-4 space-y-4">
               {navItems.map((item) => (
                 <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
+                  key={item.name}
+                  href={item.href}
                   className="block text-metax-text-light hover:text-metax-gold transition-colors duration-200 text-base font-medium py-2"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  {item}
+                  {item.name}
                 </a>
               ))}
               <div className="flex flex-col space-y-2 pt-4">
-                <button className="border border-metax-border-gold text-metax-gold hover:bg-metax-gold hover:text-metax-black px-5 py-2 rounded-md transition-all duration-200 font-medium">
+                <a
+                  href="https://metaxcoin.cloud/Login"
+                  className="border border-metax-border-gold text-metax-gold hover:bg-metax-gold hover:text-metax-black px-5 py-2 rounded-md transition-all duration-200 font-medium text-center"
+                >
                   Login
-                </button>
-                <button className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-5 py-2 rounded-md transition-all duration-200 font-medium">
+                </a>
+                <a
+                  href="https://metaxcoin.cloud/Register"
+                  className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-5 py-2 rounded-md transition-all duration-200 font-medium text-center"
+                >
                   Sign Up
-                </button>
+                </a>
               </div>
             </div>
           </div>

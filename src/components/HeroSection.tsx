@@ -17,9 +17,12 @@ const HeroSection = () => {
 
             {/* Hero CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mt-8">
-              <button className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-8 py-4 rounded-md transition-all duration-200 font-semibold text-lg">
+              <a
+                href="https://metaxcoin.cloud/Register"
+                className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-8 py-4 rounded-md transition-all duration-200 font-semibold text-lg text-center"
+              >
                 Buy MXC Now
-              </button>
+              </a>
               <button className="border border-metax-border-gold text-metax-gold hover:bg-metax-gold hover:text-metax-black px-8 py-4 rounded-md transition-all duration-200 font-semibold text-lg">
                 Read Whitepaper
               </button>
