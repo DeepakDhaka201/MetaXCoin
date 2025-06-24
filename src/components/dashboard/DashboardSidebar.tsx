@@ -21,22 +21,27 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
       name: "Dashboard",
       href: "https://metaxcoin.cloud/User-Dashboard",
       active: true,
+      icon: "📊",
     },
     {
       name: "Notification",
       href: "https://metaxcoin.cloud/Notification",
+      icon: "🔔",
     },
     {
       name: "Investment Area",
       href: "https://metaxcoin.cloud/Top-Up-User",
+      icon: "💼",
     },
     {
       name: "My Investment",
       href: "https://metaxcoin.cloud/my-contract",
+      icon: "📈",
     },
     {
       name: "Add Fund",
       expandable: true,
+      icon: "💰",
       subItems: [
         { name: "Send Request", href: "https://metaxcoin.cloud/Deposite" },
         {
@@ -48,6 +53,7 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
     {
       name: "Crypto Withdraw",
       expandable: true,
+      icon: "💳",
       subItems: [
         {
           name: "Send Request",
@@ -62,6 +68,7 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
     {
       name: "My Team",
       expandable: true,
+      icon: "👥",
       subItems: [
         {
           name: "Direct Active",
@@ -82,6 +89,7 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
     {
       name: "Income Area",
       expandable: true,
+      icon: "💎",
       subItems: [
         {
           name: "Self Coin Bonus",
@@ -105,6 +113,7 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
     {
       name: "Ticket Area",
       expandable: true,
+      icon: "🎫",
       subItems: [
         {
           name: "Generate Ticket",
@@ -116,36 +125,37 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
     {
       name: "Logout",
       href: "https://metaxcoin.cloud/Logout",
+      icon: "🚪",
     },
   ];
 
   return (
     <div
-      className={`fixed left-0 top-0 h-full w-80 bg-metax-black z-40 transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+      className={`fixed left-0 top-0 h-full w-80 bg-metax-black z-40 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
     >
       {/* Sidebar Content */}
-      <nav className="h-full overflow-y-auto pt-4">
-        <ul className="flex flex-col pt-4">
+      <nav className="h-full overflow-y-auto">
+        <ul className="flex flex-col pt-4 bg-metax-black">
           {menuItems.map((item, index) => (
-            <li key={index} className="flex flex-col px-8 py-0 relative">
+            <li key={index} className="flex flex-col px-8 relative">
               {item.expandable ? (
                 <>
                   <button
                     onClick={() => toggleMenu(item.name)}
                     className="flex items-center text-left w-full text-gray-400 hover:text-white transition-colors duration-500 py-5 px-6 rounded-xl"
                   >
-                    <i className="inline-block text-2xl font-light mr-4 relative top-0">
-                      📊
+                    <i className="inline-block text-2xl font-light pr-4 relative top-0 align-middle">
+                      {item.icon}
                     </i>
                     <span className="inline">{item.name}</span>
                   </button>
                   {expandedMenus[item.name] && (
-                    <ul className="py-2">
+                    <ul className="pb-2 pt-2 relative transition-all duration-200 ease-in-out z-1">
                       {item.subItems?.map((subItem, subIndex) => (
-                        <li key={subIndex}>
+                        <li key={subIndex} className="list-item relative">
                           <a
                             href={subItem.href}
-                            className="block text-gray-400 hover:text-white transition-colors duration-500 py-2 px-18 text-sm"
+                            className="block text-gray-400 hover:text-white transition-colors duration-500 py-2 px-18 text-sm relative"
                           >
                             {subItem.name}
                           </a>
@@ -163,24 +173,28 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
                       : "text-gray-400 hover:text-white"
                   }`}
                 >
-                  <i className="inline-block text-2xl font-light mr-4 relative top-0">
-                    {item.active ? "🏠" : "📱"}
+                  <i className="inline-block text-2xl font-light pr-4 relative top-0 align-middle">
+                    {item.icon}
                   </i>
-                  <span className="inline font-semibold">{item.name}</span>
+                  <span
+                    className={`inline ${item.active ? "font-semibold" : ""}`}
+                  >
+                    {item.name}
+                  </span>
                 </a>
               )}
             </li>
           ))}
         </ul>
-      </nav>
 
-      {/* Footer */}
-      <div className="absolute bottom-0 left-0 right-0 p-8 text-center">
-        <div className="text-gray-500 text-sm">
-          Meta X Coin Dashboard
-          <br />© 2025 All Rights Reserved
+        {/* Footer */}
+        <div className="absolute bottom-0 left-0 right-0 p-8 text-center">
+          <div className="text-gray-500 text-sm">
+            Meta X Coin Dashboard
+            <br />© 2025 All Rights Reserved
+          </div>
         </div>
-      </div>
+      </nav>
     </div>
   );
 };

@@ -12,8 +12,8 @@ const DashboardContent = () => {
   ];
 
   return (
-    <main className="flex-1 pt-24 px-6" style={{ marginLeft: "320px" }}>
-      <div className="max-w-full mx-auto space-y-6">
+    <main className="min-h-screen overflow-y-auto p-6">
+      <div className="max-w-full space-y-6">
         {/* Current Rate Section */}
         <div className="bg-gradient-to-br from-metax-dark-section/50 to-metax-black/30 rounded-xl border border-metax-border-gold/30 p-8 text-center">
           <div className="flex items-center justify-center mb-6">

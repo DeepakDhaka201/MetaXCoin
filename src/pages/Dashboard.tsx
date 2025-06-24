@@ -8,23 +8,22 @@ const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
-    <div className="min-h-screen bg-metax-black text-metax-text-light relative overflow-hidden">
+    <div className="min-h-screen bg-metax-black text-metax-text-light relative">
       {/* Animated Background */}
       <AnimatedBackground />
 
       {/* Dashboard Layout */}
-      <div className="relative z-10 flex h-screen">
+      <div className="relative z-10">
         {/* Sidebar */}
         <DashboardSidebar isOpen={isSidebarOpen} />
 
-        {/* Main Content */}
-        <div className="flex-1 flex flex-col">
-          {/* Header */}
-          <DashboardHeader
-            onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
-          />
+        {/* Header */}
+        <DashboardHeader
+          onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+        />
 
-          {/* Content */}
+        {/* Main Content */}
+        <div className="pl-80" style={{ paddingTop: "88px" }}>
           <DashboardContent />
         </div>
       </div>

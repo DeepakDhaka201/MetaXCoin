@@ -9,8 +9,8 @@ const DashboardHeader = ({ onToggleSidebar }: DashboardHeaderProps) => {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 bg-metax-black h-22 flex items-center px-6"
-      style={{ paddingLeft: "345px" }}
+      className="fixed top-0 left-80 right-0 z-50 bg-metax-black h-22 flex items-center px-6"
+      style={{ height: "88px" }}
     >
       <div className="flex items-center justify-between w-full h-full px-20">
         {/* Dashboard Title */}
