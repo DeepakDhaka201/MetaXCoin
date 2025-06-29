@@ -115,8 +115,8 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
       expandable: true,
       icon: "addFund",
       subItems: [
-        { name: "Send Request", href: "/dashboard/deposit" },
-        { name: "Request History", href: "/dashboard/deposit-history" },
+        { name: "Send Request", href: "/dashboard/add-fund" },
+        { name: "Request History", href: "/dashboard/add-fund/history" },
       ],
     },
     {
@@ -124,8 +124,8 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
       expandable: true,
       icon: "withdraw",
       subItems: [
-        { name: "Send Request", href: "/dashboard/withdraw" },
-        { name: "Request History", href: "/dashboard/withdraw-history" },
+        { name: "Send Request", href: "/dashboard/crypto-withdraw" },
+        { name: "Request History", href: "/dashboard/crypto-withdraw/history" },
       ],
     },
     {
@@ -133,11 +133,11 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
       expandable: true,
       icon: "team",
       subItems: [
-        { name: "Direct Active", href: "/dashboard/team/active" },
-        { name: "Direct In-Active", href: "/dashboard/team/inactive" },
-        { name: "Direct Team", href: "/dashboard/team/direct" },
-        { name: "All Team", href: "/dashboard/team/all" },
-        { name: "Tree View", href: "/dashboard/team/tree" },
+        { name: "Direct Active", href: "/dashboard/my-team/active" },
+        { name: "Direct In-Active", href: "/dashboard/my-team/inactive" },
+        { name: "Direct Team", href: "/dashboard/my-team/direct" },
+        { name: "All Team", href: "/dashboard/my-team/all" },
+        { name: "Tree View", href: "/dashboard/my-team/tree" },
       ],
     },
     {
@@ -147,7 +147,7 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
       subItems: [
         { name: "Self Coin Bonus", href: "/dashboard/income/self-coin" },
         { name: "Staking Bonus", href: "/dashboard/income/staking" },
-        { name: "Direct Refferal", href: "/dashboard/income/referral" },
+        { name: "Direct Referral", href: "/dashboard/income/referral" },
         { name: "Level Bonus", href: "/dashboard/income/level" },
         { name: "Lifetime Reward", href: "/dashboard/income/lifetime" },
       ],
@@ -191,19 +191,6 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
       >
         {/* Sidebar Content */}
         <nav className="h-full overflow-y-auto">
-          {/* Logo Section */}
-          <div className="p-6 border-b border-gray-800">
-            <div className="flex items-center">
-              <div className="w-12 h-12 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center mr-3">
-                <span className="text-white font-bold text-xl">M</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-white font-semibold text-lg">MetaX</span>
-                <span className="text-metax-text-muted text-sm">Dashboard</span>
-              </div>
-            </div>
-          </div>
-
           <ul className="flex flex-col bg-metax-black py-4">
             {menuItems.map((item, index) => (
               <li key={index} className="flex flex-col relative">
