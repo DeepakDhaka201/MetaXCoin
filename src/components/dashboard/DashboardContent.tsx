@@ -31,141 +31,146 @@ const DashboardContent = () => {
   return (
     <div className="p-4 lg:p-6 space-y-6">
       {/* MetaX Coin Dashboard */}
-      <div className="bg-gradient-to-br from-metax-dark-section/50 to-metax-black/30 rounded-xl border border-metax-border-gold/30 p-4 lg:p-6">
-        <div className="flex items-center justify-center mb-6">
-          <div className="w-16 h-16 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center mr-4">
-            <span className="font-bold text-2xl text-white">M</span>
-          </div>
-          <div>
-            <h3 className="text-white text-2xl font-bold">
-              {metaxCoinData.name}
-            </h3>
-            <p className="text-metax-text-muted">
-              ({metaxCoinData.symbol}) • {metaxCoinData.network}
-            </p>
-          </div>
-        </div>
-
-        {/* Price and Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <div className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg p-4 text-center">
-            <div className="text-metax-gold text-3xl font-bold mb-2">
-              {metaxCoinData.price}
-            </div>
-            <div
-              className={`text-lg flex items-center justify-center ${metaxCoinData.isPositive ? "text-green-400" : "text-red-400"}`}
-            >
-              <span className="mr-1">
-                {metaxCoinData.isPositive ? "↗" : "↘"}
-              </span>
-              <span>{metaxCoinData.change}</span>
-            </div>
-            <div className="text-metax-text-muted text-sm mt-1">24h Change</div>
-          </div>
-
-          <div className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg p-4 text-center">
-            <div className="text-white text-xl font-bold mb-2">
-              {metaxCoinData.marketCap}
-            </div>
-            <div className="text-metax-text-muted text-sm">Market Cap</div>
-            <div className="text-metax-gold text-sm mt-1">
-              Rank {metaxCoinData.rank}
-            </div>
-          </div>
-
-          <div className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg p-4 text-center">
-            <div className="text-white text-xl font-bold mb-2">
-              {metaxCoinData.volume24h}
-            </div>
-            <div className="text-metax-text-muted text-sm">24h Volume</div>
-            <div className="text-green-400 text-sm mt-1">Active Trading</div>
-          </div>
-
-          <div className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg p-4 text-center">
-            <div className="text-white text-xl font-bold mb-2">
-              {metaxCoinData.holders}
-            </div>
-            <div className="text-metax-text-muted text-sm">Token Holders</div>
-            <div className="text-blue-400 text-sm mt-1">Growing Community</div>
-          </div>
-        </div>
-
-        {/* Supply Information */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <div className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg p-4">
-            <h4 className="text-white font-semibold mb-3">
-              Supply Information
-            </h4>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-metax-text-muted">Total Supply:</span>
-                <span className="text-white font-medium">
-                  {metaxCoinData.totalSupply} MXC
-                </span>
+      <div className="bg-gradient-to-br from-metax-dark-section/50 to-metax-black/30 rounded-xl border border-metax-border-gold/30 p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Price Section */}
+          <div className="lg:col-span-1">
+            <div className="flex items-center mb-4">
+              <div className="w-12 h-12 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center mr-3">
+                <span className="font-bold text-xl text-white">M</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-metax-text-muted">Circulating:</span>
-                <span className="text-metax-gold font-medium">
-                  {metaxCoinData.circulatingSupply} MXC
-                </span>
+              <div>
+                <h3 className="text-white text-xl font-bold">MetaX Coin</h3>
+                <p className="text-metax-text-muted text-sm">MXC</p>
               </div>
-              <div className="w-full bg-metax-black/50 rounded-full h-2 mt-3">
+            </div>
+
+            <div className="space-y-3">
+              <div>
+                <div className="text-metax-gold text-3xl font-bold">
+                  {metaxCoinData.price}
+                </div>
                 <div
-                  className="bg-gradient-to-r from-amber-900 to-metax-gold-dark h-2 rounded-full"
-                  style={{ width: "52%" }}
-                ></div>
-              </div>
-              <div className="text-metax-text-muted text-xs">
-                52% in circulation
+                  className={`text-lg flex items-center ${metaxCoinData.isPositive ? "text-green-400" : "text-red-400"}`}
+                >
+                  <span className="mr-1">
+                    {metaxCoinData.isPositive ? "↗" : "↘"}
+                  </span>
+                  <span>
+                    {metaxCoinData.changeAmount} ({metaxCoinData.change})
+                  </span>
+                </div>
+                <div className="text-metax-text-muted text-sm">24h Change</div>
               </div>
             </div>
           </div>
 
-          <div className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg p-4">
-            <h4 className="text-white font-semibold mb-3">
-              Contract Information
-            </h4>
-            <div className="space-y-2">
-              <div>
-                <span className="text-metax-text-muted text-sm">Network:</span>
-                <div className="text-white font-medium">
-                  {metaxCoinData.network}
-                </div>
+          {/* Price Graph */}
+          <div className="lg:col-span-1">
+            <div className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg p-4 h-full">
+              <h4 className="text-white font-medium mb-3">Price Chart (24h)</h4>
+              <div className="relative h-32">
+                {/* Simple SVG Graph */}
+                <svg viewBox="0 0 300 100" className="w-full h-full">
+                  <defs>
+                    <linearGradient
+                      id="priceGradient"
+                      x1="0%"
+                      y1="0%"
+                      x2="0%"
+                      y2="100%"
+                    >
+                      <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.3" />
+                      <stop
+                        offset="100%"
+                        stopColor="#D4AF37"
+                        stopOpacity="0.05"
+                      />
+                    </linearGradient>
+                  </defs>
+                  <polyline
+                    fill="none"
+                    stroke="#D4AF37"
+                    strokeWidth="2"
+                    points="0,80 30,75 60,85 90,70 120,65 150,70 180,60 210,55 240,60 270,50 300,45"
+                  />
+                  <polyline
+                    fill="url(#priceGradient)"
+                    points="0,80 30,75 60,85 90,70 120,65 150,70 180,60 210,55 240,60 270,50 300,45 300,100 0,100"
+                  />
+                </svg>
               </div>
-              <div>
-                <span className="text-metax-text-muted text-sm">
-                  Contract Address:
-                </span>
-                <div className="bg-metax-black/50 p-2 rounded border border-metax-border-gold/20 mt-1">
-                  <code className="text-metax-gold text-xs break-all">
-                    {metaxCoinData.contract}
-                  </code>
-                </div>
+              <div className="flex justify-between text-xs text-metax-text-muted mt-2">
+                <span>00:00</span>
+                <span>12:00</span>
+                <span>24:00</span>
               </div>
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText(metaxCoinData.contract);
-                  alert("Contract address copied to clipboard!");
-                }}
-                className="w-full mt-2 py-2 bg-metax-gold/20 hover:bg-metax-gold/30 text-metax-gold rounded text-sm font-medium transition-colors"
-              >
-                Copy Contract Address
-              </button>
             </div>
           </div>
-        </div>
 
-        {/* Quick Actions */}
-        <div className="flex flex-wrap gap-4 justify-center">
-          <button className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-6 py-3 rounded-lg font-medium transition-all duration-200">
-            🔗 View on BSCScan
-          </button>
-          <button className="bg-metax-dark-section/60 hover:bg-metax-dark-section/80 text-white px-6 py-3 rounded-lg font-medium border border-metax-border-gold/30 transition-all duration-200">
-            📊 Trade MXC
-          </button>
-          <button className="bg-metax-dark-section/60 hover:bg-metax-dark-section/80 text-white px-6 py-3 rounded-lg font-medium border border-metax-border-gold/30 transition-all duration-200">
-            ⚡ Stake MXC
-          </button>
+          {/* Key Metadata */}
+          <div className="lg:col-span-1 space-y-4">
+            <div className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg p-4">
+              <h4 className="text-white font-medium mb-3">Key Statistics</h4>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-metax-text-muted text-sm">
+                    Market Cap
+                  </span>
+                  <span className="text-white font-medium">
+                    {metaxCoinData.marketCap}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-metax-text-muted text-sm">
+                    24h Volume
+                  </span>
+                  <span className="text-white font-medium">
+                    {metaxCoinData.volume24h}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-metax-text-muted text-sm">
+                    Token Holders
+                  </span>
+                  <span className="text-white font-medium">
+                    {metaxCoinData.holders}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg p-4">
+              <h4 className="text-white font-medium mb-3">Supply Info</h4>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-metax-text-muted text-sm">
+                    Total Supply
+                  </span>
+                  <span className="text-white font-medium">
+                    {metaxCoinData.totalSupply}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-metax-text-muted text-sm">
+                    Circulating
+                  </span>
+                  <span className="text-metax-gold font-medium">
+                    {metaxCoinData.circulatingSupply}
+                  </span>
+                </div>
+                <div className="w-full bg-metax-black/50 rounded-full h-1.5">
+                  <div
+                    className="bg-gradient-to-r from-amber-900 to-metax-gold-dark h-1.5 rounded-full"
+                    style={{ width: "52%" }}
+                  ></div>
+                </div>
+                <div className="text-metax-text-muted text-xs">
+                  52% in circulation
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
