@@ -12,7 +12,7 @@ const DashboardContent = () => {
   ];
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 lg:p-6 space-y-6">
       {/* Current Rate Section */}
       <div className="bg-gradient-to-br from-metax-dark-section/50 to-metax-black/30 rounded-xl border border-metax-border-gold/30 p-8 text-center">
         <div className="flex items-center justify-center mb-6">
@@ -57,7 +57,7 @@ const DashboardContent = () => {
       </div>
 
       {/* Balance Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
         {balanceCards.map((card, index) => (
           <div
             key={index}
@@ -81,7 +81,7 @@ const DashboardContent = () => {
       </div>
 
       {/* Overview Sections */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
         {/* Deposit Overview */}
         <div className="bg-gradient-to-br from-metax-dark-section/50 to-metax-black/30 rounded-xl border border-metax-border-gold/30 p-6">
           <h3 className="text-white text-lg font-semibold mb-6">

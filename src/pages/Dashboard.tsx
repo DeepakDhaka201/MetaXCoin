@@ -12,16 +12,19 @@ const Dashboard = () => {
       {/* Animated Background */}
       <AnimatedBackground />
 
-      {/* Sidebar */}
-      <DashboardSidebar isOpen={isSidebarOpen} />
-
       {/* Header */}
       <DashboardHeader
         onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+        isSidebarOpen={isSidebarOpen}
       />
 
+      {/* Sidebar */}
+      <DashboardSidebar isOpen={isSidebarOpen} />
+
       {/* Main Content */}
-      <main className="ml-80 pt-22 h-full overflow-y-auto relative z-10">
+      <main
+        className={`${isSidebarOpen ? "lg:ml-80" : "lg:ml-0"} pt-22 h-full overflow-y-auto relative z-10 transition-all duration-300`}
+      >
         <DashboardContent />
       </main>
     </div>

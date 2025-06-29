@@ -3,9 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 interface DashboardHeaderProps {
   onToggleSidebar: () => void;
+  isSidebarOpen: boolean;
 }
 
-const DashboardHeader = ({ onToggleSidebar }: DashboardHeaderProps) => {
+const DashboardHeader = ({
+  onToggleSidebar,
+  isSidebarOpen,
+}: DashboardHeaderProps) => {
   const navigate = useNavigate();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
@@ -17,16 +21,58 @@ const DashboardHeader = ({ onToggleSidebar }: DashboardHeaderProps) => {
 
   return (
     <header
-      className="fixed top-0 left-80 right-0 bg-metax-black z-50 transition-all duration-200 border-b border-gray-800"
-      style={{
-        height: "88px",
-        paddingLeft: "30px",
-      }}
+      className="fixed top-0 left-0 right-0 bg-metax-black z-50 border-b border-gray-800"
+      style={{ height: "88px" }}
     >
-      <div className="flex items-center justify-between h-full px-20">
-        {/* Dashboard Title */}
+      <div className="flex items-center justify-between h-full px-6">
+        {/* Left side - Logo and Menu Toggle */}
         <div className="flex items-center h-full">
-          <h1 className="text-white text-3xl font-semibold">Dashboard</h1>
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={onToggleSidebar}
+            className="lg:hidden text-white p-2 hover:bg-metax-dark-section rounded-lg transition-colors mr-4"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+
+          {/* Logo */}
+          <div className="flex items-center">
+            <div className="w-10 h-10 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center mr-3">
+              <span className="text-white font-bold text-lg">M</span>
+            </div>
+            <h1 className="text-white text-2xl font-semibold">Dashboard</h1>
+          </div>
+        </div>
+
+        {/* Crypto Ticker */}
+        <div className="hidden md:flex items-center space-x-4 text-sm">
+          <div className="flex items-center space-x-2">
+            <span className="text-blue-400">📈 EUR to USD</span>
+            <span className="text-white">1.17182</span>
+            <span className="text-green-400">+0.00201 (+0.17%)</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className="text-orange-400">₿ Bitcoin</span>
+            <span className="text-white">107,400</span>
+            <span className="text-green-400">+61.00 (+0.06%)</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className="text-purple-400">Ξ Ethereum</span>
+            <span className="text-white">2,439.7</span>
+            <span className="text-red-400">-32.6 (-0.13%)</span>
+          </div>
         </div>
 
         {/* Right Side - Notification & Profile */}
