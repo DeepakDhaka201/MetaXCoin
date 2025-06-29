@@ -12,9 +12,12 @@ import Investment from "./pages/dashboard/Investment";
 import MyInvestment from "./pages/dashboard/MyInvestment";
 import Profile from "./pages/dashboard/Profile";
 import AddFund from "./pages/dashboard/AddFund";
+import AddFundHistory from "./pages/dashboard/AddFundHistory";
 import Options from "./pages/dashboard/Options";
 import CryptoWithdraw from "./pages/dashboard/CryptoWithdraw";
+import CryptoWithdrawHistory from "./pages/dashboard/CryptoWithdrawHistory";
 import MyTeam from "./pages/dashboard/MyTeam";
+import MyTeamActive from "./pages/dashboard/MyTeamActive";
 import Income from "./pages/dashboard/Income";
 import NotFound from "./pages/NotFound";
 
@@ -34,13 +37,34 @@ const App = () => (
           <Route path="/dashboard/my-investment" element={<MyInvestment />} />
           <Route path="/dashboard/profile" element={<Profile />} />
           <Route path="/dashboard/add-fund" element={<AddFund />} />
+          <Route
+            path="/dashboard/add-fund/history"
+            element={<AddFundHistory />}
+          />
           <Route path="/dashboard/options" element={<Options />} />
           <Route
             path="/dashboard/crypto-withdraw"
             element={<CryptoWithdraw />}
           />
+          <Route
+            path="/dashboard/crypto-withdraw/history"
+            element={<CryptoWithdrawHistory />}
+          />
           <Route path="/dashboard/my-team" element={<MyTeam />} />
+          <Route path="/dashboard/my-team/active" element={<MyTeamActive />} />
+          <Route
+            path="/dashboard/my-team/inactive"
+            element={<MyTeamActive />}
+          />
+          <Route path="/dashboard/my-team/direct" element={<MyTeamActive />} />
+          <Route path="/dashboard/my-team/all" element={<MyTeamActive />} />
+          <Route path="/dashboard/my-team/tree" element={<MyTeamActive />} />
           <Route path="/dashboard/income" element={<Income />} />
+          <Route path="/dashboard/income/self-coin" element={<Income />} />
+          <Route path="/dashboard/income/staking" element={<Income />} />
+          <Route path="/dashboard/income/referral" element={<Income />} />
+          <Route path="/dashboard/income/level" element={<Income />} />
+          <Route path="/dashboard/income/lifetime" element={<Income />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
