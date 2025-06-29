@@ -13,23 +13,6 @@ const DashboardContent = () => {
 
   return (
     <div className="p-4 lg:p-6 space-y-6">
-      {/* Current Rate Section */}
-      <div className="bg-gradient-to-br from-metax-dark-section/50 to-metax-black/30 rounded-xl border border-metax-border-gold/30 p-4 lg:p-8 text-center">
-        <div className="flex items-center justify-center mb-6">
-          <div className="w-24 h-24 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center">
-            <span className="text-white text-2xl font-bold">MXC</span>
-          </div>
-        </div>
-        <div className="mb-4">
-          <div className="text-metax-gold text-lg font-semibold">
-            Current Rate : 0.0006 $
-          </div>
-        </div>
-        <div className="bg-metax-gold-dark/20 px-4 py-2 rounded-lg inline-block">
-          <span className="text-metax-text-light">1 USDT = 1563.98 MTX</span>
-        </div>
-      </div>
-
       {/* Referral Link Section */}
       <div className="bg-gradient-to-br from-metax-dark-section/50 to-metax-black/30 rounded-xl border border-metax-border-gold/30 p-4 lg:p-6">
         <h3 className="text-white text-base lg:text-lg font-semibold mb-4 text-center">

@@ -67,6 +67,23 @@ const DashboardHeader = ({
           </div>
         </div>
 
+        {/* Current Rate Section */}
+        <div className="hidden md:flex items-center space-x-4">
+          <div className="flex items-center space-x-3 bg-metax-dark-section/30 rounded-lg px-4 py-2 border border-metax-border-gold/20">
+            <div className="w-10 h-10 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center">
+              <span className="text-white text-sm font-bold">MXC</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-metax-gold text-sm font-medium">
+                0.0006 $
+              </span>
+              <span className="text-metax-text-muted text-xs">
+                1 USDT = 1563.98 MTX
+              </span>
+            </div>
+          </div>
+        </div>
+
         {/* Crypto Ticker */}
         <div className="hidden xl:flex items-center space-x-4 text-xs lg:text-sm">
           <div className="flex items-center space-x-1 lg:space-x-2">

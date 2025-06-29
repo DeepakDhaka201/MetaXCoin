@@ -23,7 +23,8 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <main
-        className={`${isSidebarOpen ? "lg:ml-80" : "lg:ml-0"} pt-22 h-full overflow-y-auto relative z-10 transition-all duration-300`}
+        className={`${isSidebarOpen ? "lg:ml-80" : "lg:ml-0"} h-full overflow-y-auto relative z-10 transition-all duration-300`}
+        style={{ paddingTop: "88px" }}
       >
         <DashboardContent />
       </main>
