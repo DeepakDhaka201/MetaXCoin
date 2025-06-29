@@ -14,7 +14,7 @@ const DashboardContent = () => {
   return (
     <div className="p-4 lg:p-6 space-y-6">
       {/* Current Rate Section */}
-      <div className="bg-gradient-to-br from-metax-dark-section/50 to-metax-black/30 rounded-xl border border-metax-border-gold/30 p-8 text-center">
+      <div className="bg-gradient-to-br from-metax-dark-section/50 to-metax-black/30 rounded-xl border border-metax-border-gold/30 p-4 lg:p-8 text-center">
         <div className="flex items-center justify-center mb-6">
           <div className="w-24 h-24 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center">
             <span className="text-white text-2xl font-bold">MXC</span>
@@ -31,16 +31,16 @@ const DashboardContent = () => {
       </div>
 
       {/* Referral Link Section */}
-      <div className="bg-gradient-to-br from-metax-dark-section/50 to-metax-black/30 rounded-xl border border-metax-border-gold/30 p-6">
-        <h3 className="text-white text-lg font-semibold mb-4 text-center">
+      <div className="bg-gradient-to-br from-metax-dark-section/50 to-metax-black/30 rounded-xl border border-metax-border-gold/30 p-4 lg:p-6">
+        <h3 className="text-white text-base lg:text-lg font-semibold mb-4 text-center">
           Invite your Friends and Earn Rewards Commission
         </h3>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center gap-4">
           <input
             type="text"
             value="https://metaxcoin.cloud/Register/John99272"
             readOnly
-            className="flex-1 bg-metax-dark-section border border-metax-border-gold/30 rounded-lg px-4 py-3 text-white"
+            className="flex-1 w-full sm:w-auto bg-metax-dark-section border border-metax-border-gold/30 rounded-lg px-3 lg:px-4 py-2 lg:py-3 text-white text-sm lg:text-base"
           />
           <button
             onClick={() => {
@@ -49,7 +49,7 @@ const DashboardContent = () => {
               );
               alert("Link copied to clipboard!");
             }}
-            className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-6 py-3 rounded-lg font-medium transition-all duration-200"
+            className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-4 lg:px-6 py-2 lg:py-3 rounded-lg font-medium transition-all duration-200 text-sm lg:text-base whitespace-nowrap"
           >
             Copy Link
           </button>

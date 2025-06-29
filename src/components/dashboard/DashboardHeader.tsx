@@ -38,40 +38,51 @@ const DashboardHeader = ({
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
+              {isSidebarOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
             </svg>
           </button>
 
           {/* Logo */}
           <div className="flex items-center">
-            <div className="w-10 h-10 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center mr-3">
+            <div className="w-10 h-10 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center mr-3 shadow-lg">
               <span className="text-white font-bold text-lg">M</span>
             </div>
-            <h1 className="text-white text-2xl font-semibold">Dashboard</h1>
+            <h1 className="text-white text-xl lg:text-2xl font-semibold">
+              Dashboard
+            </h1>
           </div>
         </div>
 
         {/* Crypto Ticker */}
-        <div className="hidden md:flex items-center space-x-4 text-sm">
-          <div className="flex items-center space-x-2">
+        <div className="hidden xl:flex items-center space-x-4 text-xs lg:text-sm">
+          <div className="flex items-center space-x-1 lg:space-x-2">
             <span className="text-blue-400">📈 EUR to USD</span>
-            <span className="text-white">1.17182</span>
-            <span className="text-green-400">+0.00201 (+0.17%)</span>
+            <span className="text-white font-medium">1.17182</span>
+            <span className="text-green-400 text-xs">+0.00201 (+0.17%)</span>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-1 lg:space-x-2">
             <span className="text-orange-400">₿ Bitcoin</span>
-            <span className="text-white">107,400</span>
-            <span className="text-green-400">+61.00 (+0.06%)</span>
+            <span className="text-white font-medium">107,400</span>
+            <span className="text-green-400 text-xs">+61.00 (+0.06%)</span>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-1 lg:space-x-2">
             <span className="text-purple-400">Ξ Ethereum</span>
-            <span className="text-white">2,439.7</span>
-            <span className="text-red-400">-32.6 (-0.13%)</span>
+            <span className="text-white font-medium">2,439.7</span>
+            <span className="text-red-400 text-xs">-32.6 (-0.13%)</span>
           </div>
         </div>
 
@@ -121,18 +132,15 @@ const DashboardHeader = ({
               <img
                 src="https://metaxcoin.cloud/public/newpanel/images/profile/pic1.jpg"
                 alt="Profile"
-                className="rounded-xl mr-5"
-                style={{
-                  height: "55px",
-                  width: "55px",
-                  borderRadius: "12px",
-                }}
+                className="rounded-xl mr-3 lg:mr-5 w-10 h-10 lg:w-14 lg:h-14"
               />
-              <div className="text-left pl-5">
-                <span className="font-semibold text-white block">
+              <div className="text-left hidden sm:block lg:pl-2">
+                <span className="font-semibold text-white block text-sm lg:text-base">
                   John99272
                 </span>
-                <small className="text-gray-400 text-sm block">John</small>
+                <small className="text-gray-400 text-xs lg:text-sm block">
+                  John
+                </small>
               </div>
             </button>
 
