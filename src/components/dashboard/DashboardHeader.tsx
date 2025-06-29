@@ -62,7 +62,7 @@ const DashboardHeader = ({
               <span className="text-white font-bold text-lg">M</span>
             </div>
             <h1 className="text-white text-xl lg:text-2xl font-semibold">
-              Dashboard
+              MetaX
             </h1>
           </div>
         </div>

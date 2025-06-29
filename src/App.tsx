@@ -11,6 +11,11 @@ import Notification from "./pages/dashboard/Notification";
 import Investment from "./pages/dashboard/Investment";
 import MyInvestment from "./pages/dashboard/MyInvestment";
 import Profile from "./pages/dashboard/Profile";
+import AddFund from "./pages/dashboard/AddFund";
+import Options from "./pages/dashboard/Options";
+import CryptoWithdraw from "./pages/dashboard/CryptoWithdraw";
+import MyTeam from "./pages/dashboard/MyTeam";
+import Income from "./pages/dashboard/Income";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +33,14 @@ const App = () => (
           <Route path="/dashboard/investment" element={<Investment />} />
           <Route path="/dashboard/my-investment" element={<MyInvestment />} />
           <Route path="/dashboard/profile" element={<Profile />} />
+          <Route path="/dashboard/add-fund" element={<AddFund />} />
+          <Route path="/dashboard/options" element={<Options />} />
+          <Route
+            path="/dashboard/crypto-withdraw"
+            element={<CryptoWithdraw />}
+          />
+          <Route path="/dashboard/my-team" element={<MyTeam />} />
+          <Route path="/dashboard/income" element={<Income />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

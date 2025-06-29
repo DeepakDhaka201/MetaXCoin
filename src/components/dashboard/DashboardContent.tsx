@@ -1,4 +1,67 @@
 const DashboardContent = () => {
+  const cryptoData = [
+    {
+      name: "Bitcoin",
+      symbol: "BTC",
+      price: "$107,400",
+      change: "+0.06%",
+      changeAmount: "+61.00",
+      isPositive: true,
+      icon: "₿",
+      color: "text-orange-400",
+    },
+    {
+      name: "Ethereum",
+      symbol: "ETH",
+      price: "$2,439.7",
+      change: "-0.13%",
+      changeAmount: "-32.6",
+      isPositive: false,
+      icon: "Ξ",
+      color: "text-purple-400",
+    },
+    {
+      name: "MetaX Coin",
+      symbol: "MXC",
+      price: "$0.0006",
+      change: "+2.45%",
+      changeAmount: "+0.000015",
+      isPositive: true,
+      icon: "M",
+      color: "text-metax-gold",
+    },
+    {
+      name: "Binance Coin",
+      symbol: "BNB",
+      price: "$1,245.32",
+      change: "+1.23%",
+      changeAmount: "+15.12",
+      isPositive: true,
+      icon: "⬢",
+      color: "text-yellow-400",
+    },
+    {
+      name: "EUR to USD",
+      symbol: "EURUSD",
+      price: "1.17182",
+      change: "+0.17%",
+      changeAmount: "+0.00201",
+      isPositive: true,
+      icon: "💱",
+      color: "text-blue-400",
+    },
+    {
+      name: "USDT",
+      symbol: "USDT",
+      price: "$1.00",
+      change: "+0.01%",
+      changeAmount: "+0.0001",
+      isPositive: true,
+      icon: "₮",
+      color: "text-green-400",
+    },
+  ];
+
   const balanceCards = [
     { title: "Available Fund", value: "0.00", icon: "💰" },
     { title: "Main Balance", value: "0.00", icon: "🏦" },
@@ -13,6 +76,54 @@ const DashboardContent = () => {
 
   return (
     <div className="p-4 lg:p-6 space-y-6">
+      {/* Live Crypto Ticker */}
+      <div className="bg-gradient-to-br from-metax-dark-section/50 to-metax-black/30 rounded-xl border border-metax-border-gold/30 p-4 lg:p-6">
+        <h3 className="text-white text-lg lg:text-xl font-semibold mb-6 text-center">
+          Live Crypto Market
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {cryptoData.map((crypto, index) => (
+            <div
+              key={index}
+              className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg p-4 hover:border-metax-gold/40 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center">
+                  <div
+                    className={`w-10 h-10 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center mr-3 ${crypto.color}`}
+                  >
+                    <span className="font-bold text-lg">{crypto.icon}</span>
+                  </div>
+                  <div>
+                    <h4 className="text-white font-medium text-sm">
+                      {crypto.name}
+                    </h4>
+                    <span className="text-metax-text-muted text-xs">
+                      {crypto.symbol}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-1">
+                <div className="text-metax-gold text-lg font-bold">
+                  {crypto.price}
+                </div>
+                <div
+                  className={`text-sm flex items-center ${crypto.isPositive ? "text-green-400" : "text-red-400"}`}
+                >
+                  <span className="mr-1">
+                    {crypto.isPositive ? "↗" : "↘"}
+                  </span>
+                  <span>
+                    {crypto.changeAmount} ({crypto.change})
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Referral Link Section */}
       <div className="bg-gradient-to-br from-metax-dark-section/50 to-metax-black/30 rounded-xl border border-metax-border-gold/30 p-4 lg:p-6">
         <h3 className="text-white text-base lg:text-lg font-semibold mb-4 text-center">
