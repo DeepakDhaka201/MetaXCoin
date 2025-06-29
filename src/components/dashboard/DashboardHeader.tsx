@@ -1,19 +1,26 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface DashboardHeaderProps {
   onToggleSidebar: () => void;
 }
 
 const DashboardHeader = ({ onToggleSidebar }: DashboardHeaderProps) => {
+  const navigate = useNavigate();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+
+  const handleLogout = () => {
+    // Clear any authentication data here
+    localStorage.removeItem("authToken");
+    navigate("/");
+  };
 
   return (
     <header
-      className="fixed top-0 bg-metax-black z-50 transition-all duration-200"
+      className="fixed top-0 left-80 right-0 bg-metax-black z-50 transition-all duration-200 border-b border-gray-800"
       style={{
         height: "88px",
-        paddingLeft: "345px",
-        width: "100%",
+        paddingLeft: "30px",
       }}
     >
       <div className="flex items-center justify-between h-full px-20">
@@ -26,8 +33,8 @@ const DashboardHeader = ({ onToggleSidebar }: DashboardHeaderProps) => {
         <ul className="flex items-center h-full">
           {/* Notification */}
           <li className="flex items-center h-full relative">
-            <a
-              href="https://metaxcoin.cloud/Notification"
+            <button
+              onClick={() => navigate("/dashboard/notification")}
               className="bg-metax-dark-section border border-gray-600 border-solid rounded-xl px-4 py-4 text-white text-lg transition-all duration-150 relative"
               style={{
                 borderBottomLeftRadius: "12px",
@@ -53,7 +60,7 @@ const DashboardHeader = ({ onToggleSidebar }: DashboardHeaderProps) => {
                   width: "24px",
                 }}
               ></div>
-            </a>
+            </button>
           </li>
 
           {/* Profile Dropdown */}
@@ -99,8 +106,11 @@ const DashboardHeader = ({ onToggleSidebar }: DashboardHeaderProps) => {
                   top: "100%",
                 }}
               >
-                <a
-                  href="https://metaxcoin.cloud/My-Profile"
+                <button
+                  onClick={() => {
+                    navigate("/dashboard/profile");
+                    setShowProfileMenu(false);
+                  }}
                   className="flex items-center px-6 py-2 text-gray-300 hover:text-white transition-colors clear-both text-left whitespace-nowrap w-full"
                 >
                   <svg
@@ -116,9 +126,12 @@ const DashboardHeader = ({ onToggleSidebar }: DashboardHeaderProps) => {
                     <circle cx="12" cy="7" r="4" />
                   </svg>
                   <span className="inline ml-2">Profile</span>
-                </a>
-                <a
-                  href="https://metaxcoin.cloud/Logout"
+                </button>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setShowProfileMenu(false);
+                  }}
                   className="flex items-center px-6 py-2 text-red-400 hover:text-red-300 transition-colors clear-both text-left whitespace-nowrap w-full"
                 >
                   <svg
@@ -135,7 +148,7 @@ const DashboardHeader = ({ onToggleSidebar }: DashboardHeaderProps) => {
                     <line x1="21" y1="12" x2="9" y2="12" />
                   </svg>
                   <span className="inline ml-2">Logout</span>
-                </a>
+                </button>
               </div>
             )}
           </li>

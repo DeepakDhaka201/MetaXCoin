@@ -12,8 +12,7 @@ const DashboardContent = () => {
   ];
 
   return (
-    <main className="min-h-screen overflow-y-auto p-6">
-      <div className="max-w-full space-y-6">
+    <div className="p-6 space-y-6">
         {/* Current Rate Section */}
         <div className="bg-gradient-to-br from-metax-dark-section/50 to-metax-black/30 rounded-xl border border-metax-border-gold/30 p-8 text-center">
           <div className="flex items-center justify-center mb-6">
@@ -43,7 +42,13 @@ const DashboardContent = () => {
               readOnly
               className="flex-1 bg-metax-dark-section border border-metax-border-gold/30 rounded-lg px-4 py-3 text-white"
             />
-            <button className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-6 py-3 rounded-lg font-medium transition-all duration-200">
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText("https://metaxcoin.cloud/Register/John99272");
+                alert("Link copied to clipboard!");
+              }}
+              className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-6 py-3 rounded-lg font-medium transition-all duration-200"
+            >
               Copy Link
             </button>
           </div>
@@ -306,7 +311,7 @@ const DashboardContent = () => {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 

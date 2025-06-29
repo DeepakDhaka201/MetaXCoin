@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface DashboardSidebarProps {
   isOpen: boolean;
 }
 
 const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
+  const navigate = useNavigate();
   const [expandedMenus, setExpandedMenus] = useState<{
     [key: string]: boolean;
   }>({});
@@ -16,26 +18,34 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
     }));
   };
 
+  const handleNavigation = (href: string) => {
+    if (href.startsWith("/")) {
+      navigate(href);
+    } else {
+      window.location.href = href;
+    }
+  };
+
   const menuItems = [
     {
       name: "Dashboard",
-      href: "https://metaxcoin.cloud/User-Dashboard",
+      href: "/dashboard",
       active: true,
       icon: "📊",
     },
     {
       name: "Notification",
-      href: "https://metaxcoin.cloud/Notification",
+      href: "/dashboard/notification",
       icon: "🔔",
     },
     {
       name: "Investment Area",
-      href: "https://metaxcoin.cloud/Top-Up-User",
+      href: "/dashboard/investment",
       icon: "💼",
     },
     {
       name: "My Investment",
-      href: "https://metaxcoin.cloud/my-contract",
+      href: "/dashboard/my-investment",
       icon: "📈",
     },
     {
@@ -43,11 +53,8 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
       expandable: true,
       icon: "💰",
       subItems: [
-        { name: "Send Request", href: "https://metaxcoin.cloud/Deposite" },
-        {
-          name: "Request History",
-          href: "https://metaxcoin.cloud/Deposite-History",
-        },
+        { name: "Send Request", href: "/dashboard/deposit" },
+        { name: "Request History", href: "/dashboard/deposit-history" },
       ],
     },
     {
@@ -55,14 +62,8 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
       expandable: true,
       icon: "💳",
       subItems: [
-        {
-          name: "Send Request",
-          href: "https://metaxcoin.cloud/View-Withdraw-Request-crpto",
-        },
-        {
-          name: "Request History",
-          href: "https://metaxcoin.cloud/View-Withdraw-History-crpto",
-        },
+        { name: "Send Request", href: "/dashboard/withdraw" },
+        { name: "Request History", href: "/dashboard/withdraw-history" },
       ],
     },
     {
@@ -70,20 +71,11 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
       expandable: true,
       icon: "👥",
       subItems: [
-        {
-          name: "Direct Active",
-          href: "https://metaxcoin.cloud/View-Direct-Active",
-        },
-        {
-          name: "Direct In-Active",
-          href: "https://metaxcoin.cloud/View-Direct-InActive",
-        },
-        {
-          name: "Direct Team",
-          href: "https://metaxcoin.cloud/View-Direct-Team",
-        },
-        { name: "All Team", href: "https://metaxcoin.cloud/Position-Downline" },
-        { name: "Tree View", href: "https://metaxcoin.cloud/folder" },
+        { name: "Direct Active", href: "/dashboard/team/active" },
+        { name: "Direct In-Active", href: "/dashboard/team/inactive" },
+        { name: "Direct Team", href: "/dashboard/team/direct" },
+        { name: "All Team", href: "/dashboard/team/all" },
+        { name: "Tree View", href: "/dashboard/team/tree" },
       ],
     },
     {
@@ -91,23 +83,11 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
       expandable: true,
       icon: "💎",
       subItems: [
-        {
-          name: "Self Coin Bonus",
-          href: "https://metaxcoin.cloud/Self-Coin-History",
-        },
-        { name: "Staking Bonus", href: "https://metaxcoin.cloud/ROI-History" },
-        {
-          name: "Direct Refferal",
-          href: "https://metaxcoin.cloud/Direct-Income",
-        },
-        {
-          name: "Level Bonus",
-          href: "https://metaxcoin.cloud/Leadership-Income",
-        },
-        {
-          name: "Lifetime Reward",
-          href: "https://metaxcoin.cloud/Reward-Income",
-        },
+        { name: "Self Coin Bonus", href: "/dashboard/income/self-coin" },
+        { name: "Staking Bonus", href: "/dashboard/income/staking" },
+        { name: "Direct Refferal", href: "/dashboard/income/referral" },
+        { name: "Level Bonus", href: "/dashboard/income/level" },
+        { name: "Lifetime Reward", href: "/dashboard/income/lifetime" },
       ],
     },
     {
@@ -115,16 +95,13 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
       expandable: true,
       icon: "🎫",
       subItems: [
-        {
-          name: "Generate Ticket",
-          href: "https://metaxcoin.cloud/Generate-Ticket",
-        },
-        { name: "Support", href: "https://metaxcoin.cloud/Support" },
+        { name: "Generate Ticket", href: "/dashboard/tickets/generate" },
+        { name: "Support", href: "/dashboard/tickets/support" },
       ],
     },
     {
       name: "Logout",
-      href: "https://metaxcoin.cloud/Logout",
+      href: "/",
       icon: "🚪",
     },
   ];
@@ -185,9 +162,9 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
                     >
                       {item.subItems?.map((subItem, subIndex) => (
                         <li key={subIndex} className="list-item relative">
-                          <a
-                            href={subItem.href}
-                            className="block transition-colors duration-500 relative"
+                          <button
+                            onClick={() => handleNavigation(subItem.href)}
+                            className="block transition-colors duration-500 relative w-full text-left hover:text-white"
                             style={{
                               color: "rgb(179, 179, 179)",
                               fontSize: "15px",
@@ -201,16 +178,16 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
                             }}
                           >
                             {subItem.name}
-                          </a>
+                          </button>
                         </li>
                       ))}
                     </ul>
                   )}
                 </>
               ) : (
-                <a
-                  href={item.href}
-                  className={`flex items-center transition-colors duration-500 relative rounded-xl ${
+                <button
+                  onClick={() => handleNavigation(item.href)}
+                  className={`flex items-center transition-colors duration-500 relative rounded-xl w-full text-left ${
                     item.active
                       ? "text-white font-semibold"
                       : "text-gray-400 hover:text-white"
@@ -256,7 +233,7 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
                   >
                     {item.name}
                   </span>
-                </a>
+                </button>
               )}
             </li>
           ))}
