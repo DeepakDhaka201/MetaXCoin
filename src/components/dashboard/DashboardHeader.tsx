@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { NotificationIcon, UserIcon } from "../icons/DashboardIcons";
+import { BRAND } from "@/constants/brand";
 
 interface DashboardHeaderProps {
   onToggleSidebar: () => void;
@@ -11,20 +14,24 @@ const DashboardHeader = ({
   isSidebarOpen,
 }: DashboardHeaderProps) => {
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
-  const handleLogout = () => {
-    // Clear any authentication data here
-    localStorage.removeItem("authToken");
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/");
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 bg-metax-black z-50 border-b border-gray-800"
+      className="fixed top-0 left-0 right-0 bg-metax-black/95 backdrop-blur-md z-50 border-b border-metax-border-gold/20 shadow-lg"
       style={{ height: "88px" }}
     >
-      <div className="flex items-center justify-between h-full px-6">
+      <div className="flex items-center justify-between h-full px-4 sm:px-6">
         {/* Left side - Logo and Menu Toggle */}
         <div className="flex items-center h-full">
           {/* Mobile Menu Toggle */}
@@ -58,106 +65,39 @@ const DashboardHeader = ({
 
           {/* Logo */}
           <div className="flex items-center">
-            <div className="w-10 h-10 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center mr-3 shadow-lg">
-              <span className="text-white font-bold text-lg">M</span>
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl flex items-center justify-center mr-3 sm:mr-4 shadow-xl hover:shadow-2xl transition-all duration-300">
+              <img
+                src={BRAND.LOGO_URL}
+                alt={BRAND.COIN_NAME}
+                className="w-full h-full object-contain rounded-lg sm:rounded-xl"
+              />
             </div>
-            <h1 className="text-white text-xl lg:text-2xl font-semibold">
-              MetaX
+            <h1 className="text-white text-lg sm:text-xl lg:text-2xl font-bold tracking-tight">
+              {BRAND.COIN_NAME}
             </h1>
           </div>
         </div>
 
-        {/* Current Rate Section */}
-        <div className="hidden md:flex items-center space-x-4">
-          <div className="flex items-center space-x-3 bg-metax-dark-section/30 rounded-lg px-4 py-2 border border-metax-border-gold/20">
-            <div className="w-10 h-10 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center">
-              <span className="text-white text-sm font-bold">MXC</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-metax-gold text-sm font-medium">
-                0.0006 $
-              </span>
-              <span className="text-metax-text-muted text-xs">
-                1 USDT = 1563.98 MTX
-              </span>
-            </div>
-          </div>
-        </div>
 
-        {/* Crypto Ticker */}
-        <div className="hidden xl:flex items-center space-x-4 text-xs lg:text-sm">
-          <div className="flex items-center space-x-1 lg:space-x-2">
-            <span className="text-blue-400">📈 EUR to USD</span>
-            <span className="text-white font-medium">1.17182</span>
-            <span className="text-green-400 text-xs">+0.00201 (+0.17%)</span>
-          </div>
-          <div className="flex items-center space-x-1 lg:space-x-2">
-            <span className="text-orange-400">₿ Bitcoin</span>
-            <span className="text-white font-medium">107,400</span>
-            <span className="text-green-400 text-xs">+61.00 (+0.06%)</span>
-          </div>
-          <div className="flex items-center space-x-1 lg:space-x-2">
-            <span className="text-purple-400">Ξ Ethereum</span>
-            <span className="text-white font-medium">2,439.7</span>
-            <span className="text-red-400 text-xs">-32.6 (-0.13%)</span>
-          </div>
-        </div>
 
         {/* Right Side - Notification & Profile */}
-        <ul className="flex items-center h-full">
-          {/* Notification */}
+        <ul className="flex items-center h-full space-x-4">
+          {/* Profile Dropdown */}
           <li className="flex items-center h-full relative">
             <button
-              onClick={() => navigate("/dashboard/notification")}
-              className="bg-metax-dark-section border border-gray-600 border-solid rounded-xl px-4 py-4 text-white text-lg transition-all duration-150 relative"
-              style={{
-                borderBottomLeftRadius: "12px",
-                borderBottomRightRadius: "12px",
-                borderTopLeftRadius: "12px",
-                borderTopRightRadius: "12px",
-              }}
-            >
-              <i className="text-2xl inline">🔔</i>
-              {/* Notification Badge */}
-              <div
-                className="absolute rounded-full"
-                style={{
-                  backgroundColor: "rgb(216, 185, 195)",
-                  borderBottom: "4px solid rgb(20, 17, 46)",
-                  borderLeft: "4px solid rgb(20, 17, 46)",
-                  borderRight: "4px solid rgb(20, 17, 46)",
-                  borderTop: "4px solid rgb(20, 17, 46)",
-                  borderRadius: "56px",
-                  height: "24px",
-                  right: "-4px",
-                  top: "-4px",
-                  width: "24px",
-                }}
-              ></div>
-            </button>
-          </li>
-
-          {/* Profile Dropdown */}
-          <li className="flex items-center h-full pl-5 relative">
-            <button
               onClick={() => setShowProfileMenu(!showProfileMenu)}
-              className="flex items-center text-white text-lg transition-all duration-150 ml-4 pl-8"
-              style={{
-                borderLeft: "1px solid rgb(42, 40, 51)",
-              }}
+              className="flex items-center text-white transition-all duration-300 hover:text-metax-gold"
             >
-              <img
-                src="https://metaxcoin.cloud/public/newpanel/images/profile/pic1.jpg"
-                alt="Profile"
-                className="rounded-xl mr-3 lg:mr-5 w-10 h-10 lg:w-14 lg:h-14"
-              />
-              <div className="text-left hidden sm:block lg:pl-2">
-                <span className="font-semibold text-white block text-sm lg:text-base">
-                  John99272
+              <div className="w-8 h-8 bg-gradient-to-br from-metax-gold via-metax-gold-dark to-amber-900 rounded-lg flex items-center justify-center mr-3 shadow-md border border-metax-gold/30">
+                <UserIcon className="w-4 h-4 text-metax-black" />
+              </div>
+              <div className="text-left hidden sm:block">
+                <span className="font-semibold text-white block text-sm">
+                  {user?.username || 'User'}
                 </span>
-                <small className="text-gray-400 text-xs lg:text-sm block">
-                  John
-                </small>
+                <span className="text-metax-text-muted text-xs">
+                  {user?.rank || 'Bronze'}
+                </span>
               </div>
             </button>
 
@@ -222,6 +162,18 @@ const DashboardHeader = ({
                 </button>
               </div>
             )}
+          </li>
+
+          {/* Notification */}
+          <li className="flex items-center h-full relative">
+            <button
+              onClick={() => navigate("/dashboard/notification")}
+              className="bg-metax-dark-section/60 border border-metax-border-gold/30 rounded-lg p-2 text-white hover:bg-metax-dark-section hover:border-metax-gold/50 transition-all duration-300 relative backdrop-blur-sm"
+            >
+              <NotificationIcon className="w-4 h-4" />
+              {/* Notification Badge */}
+              <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-red-500 rounded-full border border-metax-black"></div>
+            </button>
           </li>
         </ul>
       </div>

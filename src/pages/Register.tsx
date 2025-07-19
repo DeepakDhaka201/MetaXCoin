@@ -1,19 +1,41 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import AnimatedBackground from "../components/AnimatedBackground";
 import EnhancedAnimations from "../components/EnhancedAnimations";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
     username: "",
     password: "",
     confirmPassword: "",
-    sponsor: "",
+    sponsor_code: "",
     agreeTerms: false,
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const { register, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Get sponsor code from URL if present
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const sponsorCode = urlParams.get('sponsor');
+    if (sponsorCode) {
+      setFormData(prev => ({ ...prev, sponsor_code: sponsorCode }));
+    }
+  }, [location]);
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -23,10 +45,39 @@ const Register = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle registration logic here
-    console.log("Registration attempt:", formData);
+    if (isSubmitting) return;
+
+    // Validate passwords match
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    if (!formData.agreeTerms) {
+      alert("Please agree to the terms and conditions");
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      await register({
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        sponsor_code: formData.sponsor_code || undefined,
+      });
+
+      // Navigation will be handled by the useEffect above
+    } catch (error) {
+      // Error handling is done in the AuthContext
+      console.error('Registration error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -54,38 +105,40 @@ const Register = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label
-                  htmlFor="firstName"
+                  htmlFor="first_name"
                   className="block text-metax-text-light text-sm font-medium mb-2"
                 >
                   First Name
                 </label>
                 <input
                   type="text"
-                  id="firstName"
-                  name="firstName"
-                  value={formData.firstName}
+                  id="first_name"
+                  name="first_name"
+                  value={formData.first_name}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 bg-metax-dark-section border border-metax-border-gold/30 rounded-lg text-metax-text-light placeholder-metax-text-muted focus:outline-none focus:border-metax-gold focus:ring-1 focus:ring-metax-gold transition-colors"
                   placeholder="First name"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               <div>
                 <label
-                  htmlFor="lastName"
+                  htmlFor="last_name"
                   className="block text-metax-text-light text-sm font-medium mb-2"
                 >
                   Last Name
                 </label>
                 <input
                   type="text"
-                  id="lastName"
-                  name="lastName"
-                  value={formData.lastName}
+                  id="last_name"
+                  name="last_name"
+                  value={formData.last_name}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 bg-metax-dark-section border border-metax-border-gold/30 rounded-lg text-metax-text-light placeholder-metax-text-muted focus:outline-none focus:border-metax-gold focus:ring-1 focus:ring-metax-gold transition-colors"
                   placeholder="Last name"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
             </div>
@@ -107,6 +160,7 @@ const Register = () => {
                 className="w-full px-4 py-3 bg-metax-dark-section border border-metax-border-gold/30 rounded-lg text-metax-text-light placeholder-metax-text-muted focus:outline-none focus:border-metax-gold focus:ring-1 focus:ring-metax-gold transition-colors"
                 placeholder="Enter your email"
                 required
+                disabled={isSubmitting}
               />
             </div>
 
@@ -127,25 +181,27 @@ const Register = () => {
                 className="w-full px-4 py-3 bg-metax-dark-section border border-metax-border-gold/30 rounded-lg text-metax-text-light placeholder-metax-text-muted focus:outline-none focus:border-metax-gold focus:ring-1 focus:ring-metax-gold transition-colors"
                 placeholder="Choose a username"
                 required
+                disabled={isSubmitting}
               />
             </div>
 
             {/* Sponsor Field */}
             <div>
               <label
-                htmlFor="sponsor"
+                htmlFor="sponsor_code"
                 className="block text-metax-text-light text-sm font-medium mb-2"
               >
-                Sponsor (Optional)
+                Sponsor Code (Optional)
               </label>
               <input
                 type="text"
-                id="sponsor"
-                name="sponsor"
-                value={formData.sponsor}
+                id="sponsor_code"
+                name="sponsor_code"
+                value={formData.sponsor_code}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 bg-metax-dark-section border border-metax-border-gold/30 rounded-lg text-metax-text-light placeholder-metax-text-muted focus:outline-none focus:border-metax-gold focus:ring-1 focus:ring-metax-gold transition-colors"
-                placeholder="Sponsor username"
+                placeholder="Enter sponsor code"
+                disabled={isSubmitting}
               />
             </div>
 
@@ -167,6 +223,7 @@ const Register = () => {
                   className="w-full px-4 py-3 bg-metax-dark-section border border-metax-border-gold/30 rounded-lg text-metax-text-light placeholder-metax-text-muted focus:outline-none focus:border-metax-gold focus:ring-1 focus:ring-metax-gold transition-colors"
                   placeholder="Create password"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               <div>
@@ -185,6 +242,7 @@ const Register = () => {
                   className="w-full px-4 py-3 bg-metax-dark-section border border-metax-border-gold/30 rounded-lg text-metax-text-light placeholder-metax-text-muted focus:outline-none focus:border-metax-gold focus:ring-1 focus:ring-metax-gold transition-colors"
                   placeholder="Confirm password"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
             </div>
@@ -199,6 +257,7 @@ const Register = () => {
                 onChange={handleInputChange}
                 className="w-4 h-4 text-metax-gold border-metax-border-gold rounded focus:ring-metax-gold mt-1"
                 required
+                disabled={isSubmitting}
               />
               <label
                 htmlFor="agreeTerms"
@@ -224,9 +283,17 @@ const Register = () => {
             {/* Register Button */}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-105"
+              disabled={isSubmitting}
+              className="w-full bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
-              Create Account
+              {isSubmitting ? (
+                <div className="flex items-center justify-center">
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                  Creating Account...
+                </div>
+              ) : (
+                'Create Account'
+              )}
             </button>
           </form>
 

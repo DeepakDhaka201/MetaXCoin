@@ -2,9 +2,10 @@ import { useState } from "react";
 import DashboardHeader from "../../components/dashboard/DashboardHeader";
 import DashboardSidebar from "../../components/dashboard/DashboardSidebar";
 import AnimatedBackground from "../../components/AnimatedBackground";
+import { useSidebar } from "../../hooks/useSidebar";
 
 const Notification = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const { isSidebarOpen, toggleSidebar, closeSidebar } = useSidebar();
 
   const notifications = [
     {
@@ -12,7 +13,6 @@ const Notification = () => {
       title: "Welcome to MetaX Coin",
       message:
         "Your account has been successfully created. Start investing today!",
-      time: "2 hours ago",
       type: "success",
       read: false,
     },
@@ -21,24 +21,14 @@ const Notification = () => {
       title: "Investment Opportunity",
       message:
         "New staking rewards are now available. Check your investment area.",
-      time: "1 day ago",
       type: "info",
       read: false,
     },
     {
       id: 3,
-      title: "Security Alert",
-      message: "Please enable two-factor authentication for better security.",
-      time: "3 days ago",
-      type: "warning",
-      read: true,
-    },
-    {
-      id: 4,
       title: "Maintenance Notice",
       message:
         "Scheduled maintenance on Jan 15, 2025 from 2:00 AM to 4:00 AM UTC.",
-      time: "1 week ago",
       type: "info",
       read: true,
     },
@@ -90,11 +80,14 @@ const Notification = () => {
       <AnimatedBackground />
 
       <DashboardHeader
-        onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+        onToggleSidebar={toggleSidebar}
         isSidebarOpen={isSidebarOpen}
       />
 
-      <DashboardSidebar isOpen={isSidebarOpen} />
+      <DashboardSidebar
+        isOpen={isSidebarOpen}
+        onClose={closeSidebar}
+      />
 
       <main
         className={`${isSidebarOpen ? "lg:ml-80" : "lg:ml-0"} h-full overflow-y-auto relative z-10 transition-all duration-300`}
@@ -122,16 +115,13 @@ const Notification = () => {
                   {getNotificationIcon(notification.type)}
 
                   <div className="flex-1">
-                    <div className="flex items-center justify-between mb-2">
+                    <div className="mb-2">
                       <h3 className="text-white font-semibold text-lg">
                         {notification.title}
                         {!notification.read && (
                           <span className="ml-2 inline-block w-2 h-2 bg-metax-gold rounded-full"></span>
                         )}
                       </h3>
-                      <span className="text-metax-text-muted text-sm">
-                        {notification.time}
-                      </span>
                     </div>
 
                     <p className="text-metax-text-muted leading-relaxed">

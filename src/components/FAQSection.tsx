@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SectionHeading from "./SectionHeading";
+import { BRAND } from "@/constants/brand";
 
 const FAQSection = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -13,17 +14,17 @@ const FAQSection = () => {
     {
       question: "What are the best cryptocurrency to buy?",
       answer:
-        "The best cryptocurrencies depend on your investment goals and risk tolerance. MetaX Coin offers unique advantages with our innovative platform and strong roadmap for growth.",
+        `The best cryptocurrencies depend on your investment goals and risk tolerance. ${BRAND.COIN_NAME} offers unique advantages with our innovative platform and strong roadmap for growth.`,
     },
     {
       question: "How to buy cryptocurrency?",
       answer:
-        "You can buy cryptocurrency through various exchanges, wallets, or directly through our platform. Simply create an account, verify your identity, and start investing in MetaX Coin.",
+        `You can buy cryptocurrency through various exchanges, wallets, or directly through our platform. Simply create an account, verify your identity, and start investing in ${BRAND.COIN_NAME}.`,
     },
     {
       question: "How to sell cryptocurrency?",
       answer:
-        "Selling cryptocurrency is as easy as buying. You can sell your MetaX Coins through our platform or any supported exchange by placing a sell order at your desired price.",
+        `Selling cryptocurrency is as easy as buying. You can sell your ${BRAND.COIN_NAME}s through our platform or any supported exchange by placing a sell order at your desired price.`,
     },
     {
       question: "What is DeFi?",

@@ -1,12 +1,27 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useIsMobile } from "@/hooks/use-mobile";
+import {
+  DashboardIcon,
+  NotificationIcon,
+  InvestmentIcon,
+  ChartIcon,
+  AddIcon,
+  WithdrawIcon,
+  UsersIcon,
+  LogoutIcon,
+  ArrowRightIcon,
+} from "../icons/DashboardIcons";
 
 interface DashboardSidebarProps {
   isOpen: boolean;
+  onClose?: () => void;
 }
 
-const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
+const DashboardSidebar = ({ isOpen, onClose }: DashboardSidebarProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isMobile = useIsMobile();
   const [expandedMenus, setExpandedMenus] = useState<{
     [key: string]: boolean;
   }>({});
@@ -19,6 +34,11 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
   };
 
   const handleNavigation = (href: string) => {
+    // Close sidebar when menu item is clicked
+    if (onClose) {
+      onClose();
+    }
+
     if (href.startsWith("/")) {
       navigate(href);
     } else {
@@ -26,64 +46,30 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
     }
   };
 
+  // Function to check if a menu item is active
+  const isMenuItemActive = (href: string) => {
+    if (href === "/dashboard") {
+      return location.pathname === "/dashboard";
+    }
+    return location.pathname.startsWith(href);
+  };
+
+  // Function to check if any submenu item is active (for expandable menus)
+  const isSubmenuActive = (subItems: { href: string }[]) => {
+    return subItems.some(subItem => location.pathname.startsWith(subItem.href));
+  };
+
   const getIcon = (iconName: string) => {
-    const iconProps = "w-5 h-5";
     const icons: { [key: string]: JSX.Element } = {
-      dashboard: (
-        <svg className={iconProps} fill="currentColor" viewBox="0 0 24 24">
-          <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
-        </svg>
-      ),
-      notification: (
-        <svg className={iconProps} fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
-        </svg>
-      ),
-      investment: (
-        <svg className={iconProps} fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-        </svg>
-      ),
-      myInvestment: (
-        <svg className={iconProps} fill="currentColor" viewBox="0 0 24 24">
-          <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" />
-        </svg>
-      ),
-      addFund: (
-        <svg className={iconProps} fill="currentColor" viewBox="0 0 24 24">
-          <path d="M19 14H5l-.5 2H19l.5-2zM17.21 9l.94-2H5.85l.94 2H17.21zM12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-        </svg>
-      ),
-      withdraw: (
-        <svg className={iconProps} fill="currentColor" viewBox="0 0 24 24">
-          <path d="M17 2H7L6 3v11h5v4l7-3V3l-1-1zm-2 9H9V9h6v2zm0-3H9V6h6v2z" />
-        </svg>
-      ),
-      team: (
-        <svg className={iconProps} fill="currentColor" viewBox="0 0 24 24">
-          <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63c-.34-.99-1.24-1.65-2.26-1.65-.8 0-1.54.37-2.01.99l-1.54 2.02c-.33.44-.77.74-1.23.82L9 10.98V13h4.5v8H16zM8.5 12.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5S7 10.17 7 11s.67 1.5 1.5 1.5z" />
-        </svg>
-      ),
-      income: (
-        <svg className={iconProps} fill="currentColor" viewBox="0 0 24 24">
-          <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" />
-        </svg>
-      ),
-      ticket: (
-        <svg className={iconProps} fill="currentColor" viewBox="0 0 24 24">
-          <path d="M20 12c0-1.1.9-2 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v4c1.1 0 2 .9 2 2s-.9 2-2 2v4c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-4c-1.1 0-2-.9-2-2z" />
-        </svg>
-      ),
-      logout: (
-        <svg className={iconProps} fill="currentColor" viewBox="0 0 24 24">
-          <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" />
-        </svg>
-      ),
-      arrow: (
-        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
-        </svg>
-      ),
+      dashboard: <DashboardIcon />,
+      notification: <NotificationIcon />,
+      investment: <InvestmentIcon />,
+      myInvestment: <ChartIcon />,
+      addFund: <AddIcon />,
+      withdraw: <WithdrawIcon />,
+      team: <UsersIcon />,
+      logout: <LogoutIcon />,
+      arrow: <ArrowRightIcon />,
     };
     return icons[iconName] || icons.dashboard;
   };
@@ -92,7 +78,6 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
     {
       name: "Dashboard",
       href: "/dashboard",
-      active: true,
       icon: "dashboard",
     },
     {
@@ -140,27 +125,7 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
         { name: "Tree View", href: "/dashboard/my-team/tree" },
       ],
     },
-    {
-      name: "Income Area",
-      expandable: true,
-      icon: "income",
-      subItems: [
-        { name: "Self Coin Bonus", href: "/dashboard/income/self-coin" },
-        { name: "Staking Bonus", href: "/dashboard/income/staking" },
-        { name: "Direct Referral", href: "/dashboard/income/referral" },
-        { name: "Level Bonus", href: "/dashboard/income/level" },
-        { name: "Lifetime Reward", href: "/dashboard/income/lifetime" },
-      ],
-    },
-    {
-      name: "Ticket Area",
-      expandable: true,
-      icon: "ticket",
-      subItems: [
-        { name: "Generate Ticket", href: "/dashboard/tickets/generate" },
-        { name: "Support", href: "/dashboard/tickets/support" },
-      ],
-    },
+
     {
       name: "Logout",
       href: "/",
@@ -173,21 +138,22 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
       {/* Mobile Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
-          onClick={() => {}}
+          className="fixed inset-0 bg-black bg-opacity-50 z-[60] lg:hidden"
+          onClick={onClose}
         />
       )}
 
       {/* Sidebar */}
       <div
-        className={`fixed left-0 bg-metax-black z-40 transition-transform duration-300 border-r border-gray-800 ${
-          isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+        className={`fixed left-0 bg-metax-black/95 backdrop-blur-md z-[70] transition-transform duration-300 border-r border-metax-border-gold/20 shadow-2xl ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         style={{
           top: "88px",
           height: "calc(100vh - 88px)",
           width: "320px",
         }}
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Sidebar Content */}
         <nav className="h-full overflow-y-auto">
@@ -198,11 +164,17 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
                   <>
                     <button
                       onClick={() => toggleMenu(item.name)}
-                      className="flex items-center justify-between text-left w-full transition-colors duration-300 text-gray-400 hover:text-white hover:bg-metax-dark-section/30 py-3 px-6 mx-4 rounded-xl"
+                      className={`flex items-center justify-between text-left w-full transition-all duration-300 py-4 px-6 mx-4 rounded-xl border ${
+                        item.subItems && isSubmenuActive(item.subItems)
+                          ? "bg-gradient-to-r from-metax-gold via-metax-gold-dark to-amber-900 text-metax-black font-bold shadow-xl border-metax-gold/50"
+                          : "text-gray-400 hover:text-white hover:bg-gradient-to-r hover:from-metax-dark-section/40 hover:to-metax-dark-section/20 border-transparent hover:border-metax-gold/20 hover:shadow-lg"
+                      }`}
                     >
                       <div className="flex items-center">
                         <div className="mr-4">{getIcon(item.icon)}</div>
-                        <span>{item.name}</span>
+                        <span className={item.subItems && isSubmenuActive(item.subItems) ? "font-semibold" : ""}>
+                          {item.name}
+                        </span>
                       </div>
                       <div
                         className={`transform transition-transform duration-200 ${expandedMenus[item.name] ? "rotate-90" : ""}`}
@@ -216,7 +188,11 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
                           <li key={subIndex}>
                             <button
                               onClick={() => handleNavigation(subItem.href)}
-                              className="block w-full text-left py-2 px-12 text-sm text-gray-400 hover:text-white hover:bg-metax-dark-section/20 transition-colors duration-200 rounded-lg mx-4"
+                              className={`block w-full text-left py-2 px-12 text-sm transition-colors duration-200 rounded-lg mx-4 ${
+                                isMenuItemActive(subItem.href)
+                                  ? "text-metax-gold font-semibold bg-metax-gold/10"
+                                  : "text-gray-400 hover:text-white hover:bg-metax-dark-section/20"
+                              }`}
                             >
                               {subItem.name}
                             </button>
@@ -228,14 +204,22 @@ const DashboardSidebar = ({ isOpen }: DashboardSidebarProps) => {
                 ) : (
                   <button
                     onClick={() => handleNavigation(item.href)}
-                    className={`flex items-center transition-colors duration-300 rounded-xl w-full text-left py-3 px-6 mx-4 ${
-                      item.active
-                        ? "bg-gradient-to-r from-amber-900 to-metax-gold-dark text-white font-semibold"
-                        : "text-gray-400 hover:text-white hover:bg-metax-dark-section/30"
+                    className={`flex items-center transition-all duration-300 rounded-xl w-full text-left py-4 px-6 mx-4 border ${
+                      item.name === "Logout"
+                        ? "text-red-400 hover:text-white hover:bg-gradient-to-r hover:from-red-900/40 hover:to-red-800/20 border-transparent hover:border-red-500/30 hover:shadow-lg hover:shadow-red-500/20"
+                        : isMenuItemActive(item.href)
+                        ? "bg-gradient-to-r from-metax-gold via-metax-gold-dark to-amber-900 text-metax-black font-bold shadow-xl border-metax-gold/50"
+                        : "text-gray-400 hover:text-white hover:bg-gradient-to-r hover:from-metax-dark-section/40 hover:to-metax-dark-section/20 border-transparent hover:border-metax-gold/20 hover:shadow-lg"
                     }`}
                   >
                     <div className="mr-4">{getIcon(item.icon)}</div>
-                    <span className={item.active ? "font-semibold" : ""}>
+                    <span className={
+                      item.name === "Logout"
+                        ? ""
+                        : isMenuItemActive(item.href)
+                        ? "font-semibold"
+                        : ""
+                    }>
                       {item.name}
                     </span>
                   </button>

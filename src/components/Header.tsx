@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BRAND } from "@/constants/brand";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -25,8 +26,15 @@ const Header = () => {
         <div className="flex items-center justify-between py-5">
           {/* Logo Section */}
           <div className="flex-shrink-0">
-            <a href="/" className="text-metax-gold text-2xl font-bold">
-              MetaX Coin
+            <a href="/" className="flex items-center">
+              <img
+                src={BRAND.LOGO_URL}
+                alt={BRAND.COIN_NAME}
+                className="h-8 w-auto mr-3"
+              />
+              <span className="text-metax-gold text-2xl font-bold">
+                {BRAND.COIN_NAME}
+              </span>
             </a>
           </div>
 

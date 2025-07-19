@@ -1,3 +1,5 @@
+import { BRAND } from "@/constants/brand";
+
 const HeroSection = () => {
   return (
     <section className="min-h-screen flex items-center pt-20">
@@ -6,10 +8,10 @@ const HeroSection = () => {
           {/* Left Column - Content */}
           <div className="pt-12 lg:pt-50">
             <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold text-metax-gold leading-tight mb-8">
-              The Next Evolution in Crypto: Meta X Coin
+              The Next Evolution in Crypto: {BRAND.DISPLAY_NAME}
             </h1>
             <p className="text-base md:text-lg text-metax-text-muted leading-relaxed max-w-2xl mb-8">
-              Meta X Coin where earning money from the comfort of your home is
+              {BRAND.DISPLAY_NAME} where earning money from the comfort of your home is
               made simple and risk-free. Join thousands of investors who have
               already discovered the power of decentralized finance and
               blockchain technology.
@@ -40,9 +42,9 @@ const HeroSection = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-metax-black/60 via-transparent to-transparent rounded-lg"></div>
               <div className="absolute bottom-4 left-4 right-4 text-center">
                 <div className="text-metax-gold text-2xl font-bold mb-2">
-                  MXC
+                  {BRAND.COIN_SYMBOL}
                 </div>
-                <div className="text-metax-text-light text-sm">Meta X Coin</div>
+                <div className="text-metax-text-light text-sm">{BRAND.DISPLAY_NAME}</div>
               </div>
             </div>
           </div>

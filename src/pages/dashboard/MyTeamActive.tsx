@@ -1,417 +1,281 @@
 import { useState } from "react";
+import { useTeamMembers, useTeamTree } from "@/hooks/useTeam";
+import DashboardHeader from "../../components/dashboard/DashboardHeader";
+import DashboardSidebar from "../../components/dashboard/DashboardSidebar";
+import AnimatedBackground from "../../components/AnimatedBackground";
+import { useSidebar } from "../../hooks/useSidebar";
 
 const MyTeamActive = () => {
-  const [selectedLevel, setSelectedLevel] = useState("all");
-  const [searchTerm, setSearchTerm] = useState("");
+  const { isSidebarOpen, toggleSidebar, closeSidebar } = useSidebar();
+  const [currentPage, setCurrentPage] = useState(0);
+  const limit = 10;
 
-  const activeMembers = [
-    {
-      id: 1,
-      username: "alex_crypto",
-      name: "Alex Johnson",
-      email: "alex@example.com",
-      joinDate: "2024-01-15",
-      level: 1,
-      investment: 5000,
-      totalEarnings: 125.5,
-      teamSize: 8,
-      lastActive: "2024-01-20",
-      isOnline: true,
-      country: "USA",
-      referralLink: "https://metaxcoin.cloud/Register/alex_crypto",
-    },
-    {
-      id: 2,
-      username: "sarah_trader",
-      name: "Sarah Williams",
-      email: "sarah@example.com",
-      joinDate: "2024-01-10",
-      level: 1,
-      investment: 2500,
-      totalEarnings: 67.25,
-      teamSize: 5,
-      lastActive: "2024-01-19",
-      isOnline: false,
-      country: "Canada",
-      referralLink: "https://metaxcoin.cloud/Register/sarah_trader",
-    },
-    {
-      id: 3,
-      username: "jenny_coins",
-      name: "Jennifer Davis",
-      email: "jenny@example.com",
-      joinDate: "2024-01-20",
-      level: 2,
-      investment: 3000,
-      totalEarnings: 89.75,
-      teamSize: 12,
-      lastActive: "2024-01-20",
-      isOnline: true,
-      country: "UK",
-      referralLink: "https://metaxcoin.cloud/Register/jenny_coins",
-    },
-    {
-      id: 4,
-      username: "crypto_king",
-      name: "Michael Chen",
-      email: "michael@example.com",
-      joinDate: "2024-01-08",
-      level: 1,
-      investment: 7500,
-      totalEarnings: 234.75,
-      teamSize: 15,
-      lastActive: "2024-01-20",
-      isOnline: true,
-      country: "Singapore",
-      referralLink: "https://metaxcoin.cloud/Register/crypto_king",
-    },
-    {
-      id: 5,
-      username: "emma_invest",
-      name: "Emma Rodriguez",
-      email: "emma@example.com",
-      joinDate: "2024-01-12",
-      level: 3,
-      investment: 1500,
-      totalEarnings: 45.25,
-      teamSize: 3,
-      lastActive: "2024-01-19",
-      isOnline: false,
-      country: "Spain",
-      referralLink: "https://metaxcoin.cloud/Register/emma_invest",
-    },
-  ];
+  // Get page type from URL
+  const currentPath = window.location.pathname;
+  const getPageInfo = () => {
+    if (currentPath.includes('/active')) {
+      return {
+        title: 'Active Team Members',
+        description: 'Members who are currently investing and earning',
+        apiParams: { status: 'active' as const }
+      };
+    } else if (currentPath.includes('/inactive')) {
+      return {
+        title: 'Inactive Team Members',
+        description: 'Members who are not currently active',
+        apiParams: { status: 'inactive' as const }
+      };
+    } else if (currentPath.includes('/direct')) {
+      return {
+        title: 'Direct Team Members',
+        description: 'Your direct referrals (Level 1)',
+        apiParams: { level: '1' as const }
+      };
+    } else if (currentPath.includes('/all')) {
+      return {
+        title: 'All Team Members',
+        description: 'Complete team overview',
+        apiParams: { status: 'all' as const }
+      };
+    } else if (currentPath.includes('/tree')) {
+      return {
+        title: 'Team Tree View',
+        description: 'Hierarchical view of your team',
+        apiParams: null // Will use tree API
+      };
+    }
+    return {
+      title: 'Team Members',
+      description: 'Manage your team',
+      apiParams: { status: 'all' as const }
+    };
+  };
 
-  const levelOptions = [
-    { value: "all", label: "All Levels" },
-    { value: "1", label: "Level 1" },
-    { value: "2", label: "Level 2" },
-    { value: "3", label: "Level 3" },
-    { value: "4", label: "Level 4" },
-    { value: "5", label: "Level 5" },
-  ];
+  const pageInfo = getPageInfo();
 
-  const filteredMembers = activeMembers.filter((member) => {
-    const levelMatch =
-      selectedLevel === "all" || member.level.toString() === selectedLevel;
-    const searchMatch =
-      searchTerm === "" ||
-      member.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      member.email.toLowerCase().includes(searchTerm.toLowerCase());
-    return levelMatch && searchMatch;
+  // API calls based on page type
+  const { data: teamMembersData, isLoading: membersLoading, error: membersError } = useTeamMembers({
+    ...pageInfo.apiParams,
+    limit,
+    offset: currentPage * limit,
   });
 
-  const totalInvestment = activeMembers.reduce(
-    (sum, member) => sum + member.investment,
-    0,
-  );
-  const totalEarnings = activeMembers.reduce(
-    (sum, member) => sum + member.totalEarnings,
-    0,
-  );
-  const totalTeamSize = activeMembers.reduce(
-    (sum, member) => sum + member.teamSize,
-    0,
-  );
+  const { data: teamTreeData, isLoading: treeLoading, error: treeError } = useTeamTree(5);
+
+  // Use appropriate data based on page type
+  const isTreeView = currentPath.includes('/tree');
+  const isLoading = isTreeView ? treeLoading : membersLoading;
+  const error = isTreeView ? treeError : membersError;
+  const members = isTreeView ? [] : (teamMembersData?.data || []);
+  const treeData = isTreeView ? teamTreeData : null;
 
   return (
-    <div className="p-4 lg:p-6 space-y-6">
-      <div className="bg-gradient-to-br from-metax-dark-section/50 to-metax-black/30 rounded-xl border border-metax-border-gold/30 p-6">
-        <h1 className="text-white text-2xl font-bold mb-2">
-          Direct Active Members
-        </h1>
-        <p className="text-metax-text-muted mb-6">
-          Manage your active team members who are currently investing and
-          earning
-        </p>
+    <div className="h-screen bg-metax-black text-metax-text-light relative overflow-hidden">
+      {/* Animated Background */}
+      <AnimatedBackground />
 
-        {/* Summary Statistics */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-          <div className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <h4 className="text-metax-text-muted text-sm mb-1">
-                  Active Members
-                </h4>
-                <div className="text-metax-gold text-2xl font-bold">
-                  {activeMembers.length}
-                </div>
-              </div>
-              <div className="w-12 h-12 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center">
-                <span className="text-white text-xl">👥</span>
+      {/* Header */}
+      <DashboardHeader
+        onToggleSidebar={toggleSidebar}
+        isSidebarOpen={isSidebarOpen}
+      />
+
+      {/* Sidebar */}
+      <DashboardSidebar
+        isOpen={isSidebarOpen}
+        onClose={closeSidebar}
+      />
+
+      {/* Main Content */}
+      <main
+        className={`${isSidebarOpen ? "lg:ml-80" : "lg:ml-0"} h-full overflow-y-auto relative z-10 transition-all duration-300`}
+        style={{ paddingTop: "88px" }}
+      >
+        <div className="p-4 lg:p-6">
+          <div className="mb-6">
+            <h1 className="text-2xl lg:text-3xl font-bold text-white mb-2">
+              {pageInfo.title}
+            </h1>
+            <p className="text-metax-text-muted">
+              {pageInfo.description}
+            </p>
+          </div>
+
+          {/* Loading State */}
+          {isLoading ? (
+            <div className="bg-metax-dark-section rounded-lg border border-metax-border-gold/30 p-8">
+              <div className="flex items-center justify-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-metax-gold"></div>
+                <span className="ml-3 text-metax-text-muted">Loading team data...</span>
               </div>
             </div>
-          </div>
-
-          <div className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <h4 className="text-metax-text-muted text-sm mb-1">
-                  Total Investment
-                </h4>
-                <div className="text-green-400 text-2xl font-bold">
-                  ${totalInvestment.toLocaleString()}
+          ) : error ? (
+            <div className="bg-metax-dark-section rounded-lg border border-red-500/30 p-8">
+              <div className="text-center">
+                <div className="text-red-400 mb-2">⚠️ Error Loading Data</div>
+                <div className="text-metax-text-muted text-sm">
+                  {error instanceof Error ? error.message : 'Failed to load team data'}
                 </div>
-              </div>
-              <div className="w-12 h-12 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center">
-                <span className="text-white text-xl">💰</span>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="mt-4 px-4 py-2 bg-metax-gold/20 hover:bg-metax-gold/30 text-metax-gold rounded-lg transition-colors"
+                >
+                  Retry
+                </button>
               </div>
             </div>
-          </div>
-
-          <div className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <h4 className="text-metax-text-muted text-sm mb-1">
-                  Total Earnings
-                </h4>
-                <div className="text-purple-400 text-2xl font-bold">
-                  ${totalEarnings.toFixed(2)}
-                </div>
-              </div>
-              <div className="w-12 h-12 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center">
-                <span className="text-white text-xl">📈</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <h4 className="text-metax-text-muted text-sm mb-1">
-                  Team Network
-                </h4>
-                <div className="text-blue-400 text-2xl font-bold">
-                  {totalTeamSize}
-                </div>
-              </div>
-              <div className="w-12 h-12 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center">
-                <span className="text-white text-xl">🌐</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Filters and Search */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-6">
-          <div className="flex-1">
-            <label className="block text-white font-medium mb-2">
-              Search Members
-            </label>
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search by username, name, or email"
-              className="w-full px-4 py-2 bg-metax-dark-section border border-metax-border-gold/30 rounded-lg text-white placeholder-metax-text-muted focus:border-metax-gold focus:outline-none"
-            />
-          </div>
-          <div className="flex-1">
-            <label className="block text-white font-medium mb-2">Level</label>
-            <select
-              value={selectedLevel}
-              onChange={(e) => setSelectedLevel(e.target.value)}
-              className="w-full px-4 py-2 bg-metax-dark-section border border-metax-border-gold/30 rounded-lg text-white"
-            >
-              {levelOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="flex items-end">
-            <button className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-6 py-2 rounded-lg font-medium transition-all duration-200">
-              Export List
-            </button>
-          </div>
-        </div>
-
-        {/* Members Table */}
-        <div className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-metax-dark-section/60">
-                <tr>
-                  <th className="px-4 py-3 text-left text-metax-text-muted text-sm font-medium">
-                    Member
-                  </th>
-                  <th className="px-4 py-3 text-left text-metax-text-muted text-sm font-medium">
-                    Level
-                  </th>
-                  <th className="px-4 py-3 text-left text-metax-text-muted text-sm font-medium">
-                    Investment
-                  </th>
-                  <th className="px-4 py-3 text-left text-metax-text-muted text-sm font-medium">
-                    Earnings
-                  </th>
-                  <th className="px-4 py-3 text-left text-metax-text-muted text-sm font-medium">
-                    Team Size
-                  </th>
-                  <th className="px-4 py-3 text-left text-metax-text-muted text-sm font-medium">
-                    Last Active
-                  </th>
-                  <th className="px-4 py-3 text-left text-metax-text-muted text-sm font-medium">
-                    Country
-                  </th>
-                  <th className="px-4 py-3 text-left text-metax-text-muted text-sm font-medium">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredMembers.map((member) => (
-                  <tr
-                    key={member.id}
-                    className="border-t border-metax-border-gold/20"
-                  >
-                    <td className="px-4 py-3">
-                      <div className="flex items-center">
-                        <div className="flex items-center mr-3">
-                          <div className="w-8 h-8 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center mr-2">
-                            <span className="text-white text-xs font-bold">
-                              {member.name.charAt(0)}
-                            </span>
-                          </div>
-                          {member.isOnline && (
-                            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                          )}
+          ) : (
+            /* Team Members Content */
+            <>
+              {isTreeView ? (
+                /* Tree View */
+                <div className="bg-metax-dark-section rounded-lg border border-metax-border-gold/30 p-6">
+                  {treeData ? (
+                    <div className="space-y-4">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-metax-gold to-metax-gold-dark flex items-center justify-center">
+                          <span className="text-metax-black font-semibold text-sm">You</span>
                         </div>
                         <div>
-                          <div className="text-white font-medium">
-                            {member.name}
-                          </div>
-                          <div className="text-metax-text-muted text-sm">
-                            @{member.username}
-                          </div>
-                          <div className="text-metax-text-muted text-xs">
-                            {member.email}
-                          </div>
+                          <div className="text-metax-text-light font-medium">Your Account</div>
+                          <div className="text-metax-text-muted text-sm">Team Leader</div>
                         </div>
                       </div>
-                    </td>
-                    <td className="px-4 py-3">
-                      <span className="px-2 py-1 bg-metax-gold/20 text-metax-gold text-xs rounded-full">
-                        Level {member.level}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-metax-gold font-medium">
-                      ${member.investment.toLocaleString()}
-                    </td>
-                    <td className="px-4 py-3 text-green-400 font-medium">
-                      ${member.totalEarnings}
-                    </td>
-                    <td className="px-4 py-3 text-white">{member.teamSize}</td>
-                    <td className="px-4 py-3 text-metax-text-muted text-sm">
-                      {member.lastActive}
-                    </td>
-                    <td className="px-4 py-3 text-white text-sm">
-                      {member.country}
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex gap-2">
-                        <button className="text-blue-400 hover:text-blue-300 text-sm">
-                          View
-                        </button>
-                        <button className="text-metax-gold hover:text-metax-gold-dark text-sm">
-                          Message
-                        </button>
+                      <div className="text-metax-text-muted text-sm">
+                        Total Nodes: {treeData.total_nodes} | Max Levels: {treeData.max_levels}
                       </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {/* Member Details Cards (Alternative View) */}
-        <div className="mt-6">
-          <h3 className="text-white text-lg font-semibold mb-4">
-            Member Cards View
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredMembers.slice(0, 6).map((member) => (
-              <div
-                key={member.id}
-                className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg p-4 hover:border-metax-gold/40 transition-all duration-300"
-              >
-                <div className="flex items-center mb-3">
-                  <div className="w-12 h-12 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center mr-3">
-                    <span className="text-white font-bold">
-                      {member.name.charAt(0)}
-                    </span>
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center">
-                      <h4 className="text-white font-medium">{member.name}</h4>
-                      {member.isOnline && (
-                        <div className="w-2 h-2 bg-green-400 rounded-full ml-2"></div>
-                      )}
+                      {/* Tree structure would be rendered here based on treeData.tree */}
+                      <div className="text-metax-text-muted text-center py-8">
+                        Tree visualization coming soon...
+                      </div>
                     </div>
-                    <p className="text-metax-text-muted text-sm">
-                      @{member.username}
-                    </p>
-                  </div>
+                  ) : (
+                    <div className="text-metax-text-muted text-center py-8">
+                      No tree data available
+                    </div>
+                  )}
                 </div>
+              ) : (
+                /* Table View */
+                <div className="bg-metax-dark-section rounded-lg border border-metax-border-gold/30 overflow-hidden">
+                  {members.length > 0 ? (
+                    <div className="overflow-x-auto">
+                      <table className="w-full">
+                        <thead className="bg-metax-black/50">
+                          <tr>
+                            <th className="px-6 py-4 text-left text-xs font-medium text-metax-text-muted uppercase tracking-wider">
+                              Member
+                            </th>
+                            <th className="px-6 py-4 text-left text-xs font-medium text-metax-text-muted uppercase tracking-wider">
+                              Level
+                            </th>
+                            <th className="px-6 py-4 text-left text-xs font-medium text-metax-text-muted uppercase tracking-wider">
+                              Join Date
+                            </th>
+                            <th className="px-6 py-4 text-left text-xs font-medium text-metax-text-muted uppercase tracking-wider">
+                              Investment
+                            </th>
+                            <th className="px-6 py-4 text-left text-xs font-medium text-metax-text-muted uppercase tracking-wider">
+                              Earnings
+                            </th>
+                            <th className="px-6 py-4 text-left text-xs font-medium text-metax-text-muted uppercase tracking-wider">
+                              Status
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-metax-border-gold/20">
+                          {members.map((member) => (
+                            <tr key={member.user_id} className="hover:bg-metax-black/30 transition-colors">
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="flex items-center">
+                                  <div className="flex-shrink-0 h-10 w-10">
+                                    <div className="h-10 w-10 rounded-full bg-gradient-to-r from-metax-gold to-metax-gold-dark flex items-center justify-center">
+                                      <span className="text-metax-black font-semibold">
+                                        {member.full_name.charAt(0)}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div className="ml-4">
+                                    <div className="text-sm font-medium text-metax-text-light">
+                                      {member.full_name}
+                                    </div>
+                                    <div className="text-sm text-metax-text-muted">
+                                      @{member.username}
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-metax-gold/20 text-metax-gold">
+                                  Level {member.level}
+                                </span>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-metax-text-light">
+                                {new Date(member.joined_at).toLocaleDateString()}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-metax-text-light">
+                                ${member.total_investment.toLocaleString()}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-metax-gold">
+                                ${member.total_earnings.toFixed(2)}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                <span
+                                  className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                                    member.is_active
+                                      ? "bg-green-100 text-green-800"
+                                      : "bg-gray-100 text-gray-800"
+                                  }`}
+                                >
+                                  {member.is_active ? "Active" : "Inactive"}
+                                </span>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    <div className="text-metax-text-muted text-center py-8">
+                      No team members found
+                    </div>
+                  )}
+                </div>
+              )}
+            </>
+          )}
 
-                <div className="space-y-2 mb-4">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-metax-text-muted">Investment:</span>
-                    <span className="text-metax-gold font-medium">
-                      ${member.investment.toLocaleString()}
-                    </span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-metax-text-muted">Earnings:</span>
-                    <span className="text-green-400 font-medium">
-                      ${member.totalEarnings}
-                    </span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-metax-text-muted">Team:</span>
-                    <span className="text-white">
-                      {member.teamSize} members
-                    </span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-metax-text-muted">Level:</span>
-                    <span className="text-metax-gold">
-                      Level {member.level}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex gap-2">
-                  <button className="flex-1 bg-metax-gold/20 hover:bg-metax-gold/30 text-metax-gold py-2 rounded text-sm font-medium transition-colors">
-                    View Details
-                  </button>
-                  <button className="flex-1 bg-blue-900/20 hover:bg-blue-900/30 text-blue-400 py-2 rounded text-sm font-medium transition-colors">
-                    Send Message
-                  </button>
-                </div>
+          {/* Pagination Controls */}
+          {!isTreeView && !isLoading && teamMembersData?.pagination && (
+            <div className="mt-6 flex items-center justify-between">
+              <div className="text-sm text-metax-text-muted">
+                Showing {teamMembersData.pagination.offset + 1} to{' '}
+                {Math.min(
+                  teamMembersData.pagination.offset + teamMembersData.pagination.limit,
+                  teamMembersData.pagination.total_count
+                )}{' '}
+                of {teamMembersData.pagination.total_count} members
               </div>
-            ))}
-          </div>
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}
+                  disabled={currentPage === 0}
+                  className="px-4 py-2 bg-metax-dark-section border border-metax-border-gold/30 rounded-lg text-white disabled:opacity-50 disabled:cursor-not-allowed hover:border-metax-gold/50 transition-colors"
+                >
+                  Previous
+                </button>
+                <button
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                  disabled={!teamMembersData.pagination.has_more}
+                  className="px-4 py-2 bg-metax-dark-section border border-metax-border-gold/30 rounded-lg text-white disabled:opacity-50 disabled:cursor-not-allowed hover:border-metax-gold/50 transition-colors"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
         </div>
-
-        {/* Quick Actions */}
-        <div className="flex flex-col sm:flex-row gap-4 mt-6">
-          <button className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-6 py-3 rounded-lg font-medium transition-all duration-200">
-            Send Bulk Message
-          </button>
-          <button className="bg-metax-dark-section hover:bg-metax-dark-section/80 text-white px-6 py-3 rounded-lg font-medium border border-metax-border-gold/30 transition-all duration-200">
-            Download Report
-          </button>
-          <button
-            onClick={() => (window.location.href = "/dashboard/my-team")}
-            className="bg-metax-dark-section hover:bg-metax-dark-section/80 text-white px-6 py-3 rounded-lg font-medium border border-metax-border-gold/30 transition-all duration-200"
-          >
-            Back to Team Overview
-          </button>
-        </div>
-      </div>
+      </main>
     </div>
   );
 };

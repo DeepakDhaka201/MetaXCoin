@@ -1,0 +1,375 @@
+import { useState } from "react";
+import DashboardHeader from "../../components/dashboard/DashboardHeader";
+import DashboardSidebar from "../../components/dashboard/DashboardSidebar";
+import AnimatedBackground from "../../components/AnimatedBackground";
+
+const MyTeamActive = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const activeMembers = [
+    {
+      id: 1,
+      username: "alex_crypto",
+      name: "Alex Johnson",
+      joinDate: "2024-01-15",
+      investment: 5000,
+      totalEarnings: 125.5,
+      lastActive: "2024-01-20",
+      isOnline: true,
+    },
+    {
+      id: 2,
+      username: "sarah_trader",
+      name: "Sarah Williams",
+      joinDate: "2024-01-10",
+      investment: 2500,
+      totalEarnings: 67.25,
+      lastActive: "2024-01-19",
+      isOnline: false,
+    },
+    {
+      id: 3,
+      username: "jenny_coins",
+      name: "Jennifer Davis",
+      joinDate: "2024-01-20",
+      investment: 3000,
+      totalEarnings: 89.75,
+      lastActive: "2024-01-20",
+      isOnline: true,
+    },
+    {
+      id: 4,
+      username: "crypto_king",
+      name: "Michael Chen",
+      joinDate: "2024-01-08",
+      investment: 7500,
+      totalEarnings: 234.75,
+      lastActive: "2024-01-20",
+      isOnline: true,
+    },
+    {
+      id: 5,
+      username: "emma_invest",
+      name: "Emma Rodriguez",
+      joinDate: "2024-01-12",
+      investment: 1500,
+      totalEarnings: 45.25,
+      lastActive: "2024-01-19",
+      isOnline: false,
+    },
+  ];
+
+  // Get page type from URL
+  const currentPath = window.location.pathname;
+  const getPageInfo = () => {
+    if (currentPath.includes('/active')) {
+      return {
+        title: 'Active Members',
+        description: 'Members who are currently investing and earning',
+        filter: (member: any) => member.isOnline
+      };
+    } else if (currentPath.includes('/inactive')) {
+      return {
+        title: 'Inactive Members',
+        description: 'Members who are not currently active',
+        filter: (member: any) => !member.isOnline
+      };
+    } else if (currentPath.includes('/direct')) {
+      return {
+        title: 'Direct Team',
+        description: 'Your direct referrals',
+        filter: () => true
+      };
+    } else if (currentPath.includes('/all')) {
+      return {
+        title: 'All Team Members',
+        description: 'Complete team overview',
+        filter: () => true
+      };
+    } else if (currentPath.includes('/tree')) {
+      return {
+        title: 'Team Tree View',
+        description: 'Hierarchical view of your team',
+        filter: () => true
+      };
+    }
+    return {
+      title: 'Team Members',
+      description: 'Manage your team',
+      filter: () => true
+    };
+  };
+
+  const pageInfo = getPageInfo();
+
+  const filteredMembers = activeMembers.filter((member) => {
+    const matchesPageFilter = pageInfo.filter(member);
+    const matchesSearch =
+      searchTerm === "" ||
+      member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      member.username.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesPageFilter && matchesSearch;
+  });
+
+  const totalInvestment = filteredMembers.reduce(
+    (sum, member) => sum + member.investment,
+    0,
+  );
+  const totalEarnings = filteredMembers.reduce(
+    (sum, member) => sum + member.totalEarnings,
+    0,
+  );
+  const onlineMembers = filteredMembers.filter((member) => member.isOnline).length;
+
+  return (
+    <div className="h-screen bg-metax-black text-metax-text-light relative overflow-hidden">
+      {/* Animated Background */}
+      <AnimatedBackground />
+
+      {/* Header */}
+      <DashboardHeader
+        onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+        isSidebarOpen={isSidebarOpen}
+      />
+
+      {/* Sidebar */}
+      <DashboardSidebar isOpen={isSidebarOpen} />
+
+      <main
+        className={`${isSidebarOpen ? "lg:ml-80" : "lg:ml-0"} h-full overflow-y-auto relative z-10 transition-all duration-300`}
+        style={{ paddingTop: "88px" }}
+      >
+        <div className="p-4 lg:p-6">
+          <div className="mb-6">
+            <h1 className="text-2xl lg:text-3xl font-bold text-white mb-2">
+              {pageInfo.title}
+            </h1>
+            <p className="text-metax-text-muted">
+              {pageInfo.description}
+            </p>
+          </div>
+
+          <div className="bg-gradient-to-br from-metax-dark-section/50 to-metax-black/30 rounded-xl border border-metax-border-gold/30 p-6">
+
+            {/* Summary Statistics */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <div className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="text-metax-text-muted text-sm mb-1">
+                      Total Members
+                    </h4>
+                    <div className="text-metax-gold text-2xl font-bold">
+                      {filteredMembers.length}
+                    </div>
+                  </div>
+                  <div className="w-12 h-12 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center">
+                    <span className="text-white text-xl">👥</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="text-metax-text-muted text-sm mb-1">
+                      Total Investment
+                    </h4>
+                    <div className="text-metax-gold text-2xl font-bold">
+                      ${totalInvestment.toLocaleString()}
+                    </div>
+                  </div>
+                  <div className="w-12 h-12 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center">
+                    <span className="text-white text-xl">💰</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="text-metax-text-muted text-sm mb-1">
+                      Total Earnings
+                    </h4>
+                    <div className="text-metax-gold text-2xl font-bold">
+                      ${totalEarnings.toFixed(2)}
+                    </div>
+                  </div>
+                  <div className="w-12 h-12 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center">
+                    <span className="text-white text-xl">📈</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Search */}
+            <div className="mb-6">
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search by name or username..."
+                className="w-full max-w-md px-4 py-3 bg-metax-dark-section border border-metax-border-gold/30 rounded-lg text-white placeholder-metax-text-muted focus:border-metax-gold focus:outline-none"
+              />
+            </div>
+
+            {/* Members Table */}
+            <div className="bg-metax-dark-section/40 border border-metax-border-gold/20 rounded-lg overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-metax-dark-section/60">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-metax-text-muted text-sm font-medium">
+                        Member
+                      </th>
+                      <th className="px-4 py-3 text-left text-metax-text-muted text-sm font-medium">
+                        Investment
+                      </th>
+                      <th className="px-4 py-3 text-left text-metax-text-muted text-sm font-medium">
+                        Earnings
+                      </th>
+                      <th className="px-4 py-3 text-left text-metax-text-muted text-sm font-medium">
+                        Last Active
+                      </th>
+                      <th className="px-4 py-3 text-left text-metax-text-muted text-sm font-medium">
+                        Status
+                      </th>
+                    </tr>
+                  </thead>
+              <tbody>
+                {filteredMembers.map((member) => (
+                  <tr
+                    key={member.id}
+                    className="border-t border-metax-border-gold/20"
+                  >
+                    <td className="px-4 py-3">
+                      <div className="flex items-center">
+                        <div className="flex items-center mr-3">
+                          <div className="w-8 h-8 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center mr-2">
+                            <span className="text-white text-xs font-bold">
+                              {member.name.charAt(0)}
+                            </span>
+                          </div>
+                          {member.isOnline && (
+                            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                          )}
+                        </div>
+                        <div>
+                          <div className="text-white font-medium">
+                            {member.name}
+                          </div>
+                          <div className="text-metax-text-muted text-sm">
+                            @{member.username}
+                          </div>
+                          <div className="text-metax-text-muted text-xs">
+                            {member.email}
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className="px-2 py-1 bg-metax-gold/20 text-metax-gold text-xs rounded-full">
+                        Level {member.level}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-metax-gold font-medium">
+                      ${member.investment.toLocaleString()}
+                    </td>
+                    <td className="px-4 py-3 text-green-400 font-medium">
+                      ${member.totalEarnings}
+                    </td>
+                    <td className="px-4 py-3 text-white">{member.teamSize}</td>
+                    <td className="px-4 py-3 text-metax-text-muted text-sm">
+                      {member.lastActive}
+                    </td>
+                    <td className="px-4 py-3 text-white text-sm">
+                      {member.country}
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex gap-2">
+                        <button className="text-blue-400 hover:text-blue-300 text-sm">
+                          View
+                        </button>
+                        <button className="text-metax-gold hover:text-metax-gold-dark text-sm">
+                          Message
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                    ) : (
+                      filteredMembers.map((member) => (
+                        <tr
+                          key={member.id}
+                          className="border-t border-metax-border-gold/20 hover:bg-metax-dark-section/20"
+                        >
+                          <td className="px-4 py-3">
+                            <div className="flex items-center">
+                              <div className="flex items-center mr-3">
+                                <div className="w-8 h-8 bg-gradient-to-r from-amber-900 to-metax-gold-dark rounded-full flex items-center justify-center mr-2">
+                                  <span className="text-white text-xs font-bold">
+                                    {member.name.charAt(0)}
+                                  </span>
+                                </div>
+                                {member.isOnline && (
+                                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                                )}
+                              </div>
+                              <div>
+                                <div className="text-white font-medium">
+                                  {member.name}
+                                </div>
+                                <div className="text-metax-text-muted text-sm">
+                                  @{member.username}
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 text-metax-gold font-medium">
+                            ${member.investment.toLocaleString()}
+                          </td>
+                          <td className="px-4 py-3 text-green-400 font-medium">
+                            ${member.totalEarnings}
+                          </td>
+                          <td className="px-4 py-3 text-metax-text-muted text-sm">
+                            {member.lastActive}
+                          </td>
+                          <td className="px-4 py-3">
+                            <span
+                              className={`px-2 py-1 text-xs rounded-full ${
+                                member.isOnline
+                                  ? "bg-green-900/30 text-green-400"
+                                  : "bg-red-900/30 text-red-400"
+                              }`}
+                            >
+                              {member.isOnline ? "Online" : "Offline"}
+                            </span>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="flex flex-col sm:flex-row gap-4 mt-6">
+              <button
+                onClick={() => window.location.href = "/dashboard/my-team"}
+                className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-6 py-3 rounded-lg font-medium transition-all duration-200"
+              >
+                Back to Team Overview
+              </button>
+              <button className="bg-metax-dark-section hover:bg-metax-dark-section/80 text-white px-6 py-3 rounded-lg font-medium border border-metax-border-gold/30 transition-all duration-200">
+                Export List
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default MyTeamActive;

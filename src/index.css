@@ -153,3 +153,42 @@
     box-shadow: 0 0 30px rgba(240, 186, 85, 0.6);
   }
 }
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@layer utilities {
+  .animate-scroll {
+    animation: scroll 30s linear infinite;
+  }
+
+  .glass-effect {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+
+  .card-hover {
+    @apply hover:shadow-2xl hover:shadow-metax-gold/10 hover:-translate-y-1 transition-all duration-500;
+  }
+
+  .gradient-gold {
+    @apply bg-gradient-to-br from-metax-gold via-metax-gold-dark to-amber-900;
+  }
+
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .border-glow {
+    box-shadow: 0 0 20px rgba(240, 186, 85, 0.2);
+  }
+
+  .border-glow-hover:hover {
+    box-shadow: 0 0 30px rgba(240, 186, 85, 0.4);
+  }
+}

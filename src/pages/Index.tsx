@@ -6,6 +6,7 @@ import SectionHeading from "../components/SectionHeading";
 import RoadmapSection from "../components/RoadmapSection";
 import FAQSection from "../components/FAQSection";
 import Footer from "../components/Footer";
+import { BRAND } from "../constants/brand";
 
 const Index = () => {
   return (
@@ -68,7 +69,7 @@ const Index = () => {
                   Seamless Payments
                 </h3>
                 <p className="text-metax-text-muted text-sm">
-                  Meta X Coin ensures smooth transactions and easy navigation
+                  {BRAND.DISPLAY_NAME} ensures smooth transactions and easy navigation
                   for users at all levels of expertise.
                 </p>
               </div>
@@ -93,7 +94,7 @@ const Index = () => {
                 </h3>
                 <p className="text-metax-text-muted text-sm">
                   The platform offers a state-of-the-art wallet system, allowing
-                  users to store, send, and receive Meta X Coin securely,
+                  users to store, send, and receive {BRAND.DISPLAY_NAME} securely,
                   protected by advanced encryption.
                 </p>
               </div>
@@ -241,9 +242,9 @@ const Index = () => {
                 BscScan is the leading Binance Smart Chain explorer that allows
                 you to explore and search the Binance Smart Chain for
                 transactions, addresses, tokens, prices and other activities
-                taking place on BSC. Meta X Coin operates on the Binance Smart
+                taking place on BSC. {BRAND.DISPLAY_NAME} operates on the Binance Smart
                 Chain (BSC), enabling efficient and scalable transactions with
-                complete transparency and verification for all MetaX Coin
+                complete transparency and verification for all {BRAND.COIN_NAME}
                 transactions.
               </p>
             </div>
@@ -253,17 +254,17 @@ const Index = () => {
         {/* MXC Section */}
         <section id="tokens" className="py-20 bg-metax-dark-section">
           <div className="container mx-auto px-3">
-            <SectionHeading>MXC</SectionHeading>
+            <SectionHeading>{BRAND.COIN_SYMBOL}</SectionHeading>
             <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h3 className="text-2xl font-semibold text-metax-gold mb-6">
-                  MetaX Coin Token
+                  {BRAND.COIN_NAME} Token
                 </h3>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center py-2 border-b border-metax-border-gold/30">
                     <span className="text-metax-text-muted">Symbol:</span>
                     <span className="text-metax-text-light font-semibold">
-                      MXC
+                      {BRAND.COIN_SYMBOL}
                     </span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-metax-border-gold/30">
@@ -289,9 +290,9 @@ const Index = () => {
               <div className="text-center lg:text-right">
                 <div className="inline-block p-8 bg-gradient-to-r from-amber-900/20 to-metax-gold-dark/20 rounded-lg border border-metax-border-gold floating-animation">
                   <div className="text-4xl font-bold text-metax-gold mb-2">
-                    MXC
+                    {BRAND.COIN_SYMBOL}
                   </div>
-                  <div className="text-metax-text-muted">MetaX Coin</div>
+                  <div className="text-metax-text-muted">{BRAND.COIN_NAME}</div>
                 </div>
               </div>
             </div>
@@ -353,13 +354,13 @@ const Index = () => {
             <SectionHeading>Contact Us</SectionHeading>
             <div className="mt-10 text-center">
               <p className="text-metax-text-muted text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
-                Have questions about Meta X Coin? Our dedicated support team is
+                Have questions about {BRAND.DISPLAY_NAME}? Our dedicated support team is
                 available around the clock to assist users with any questions,
                 issues, or concerns.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="mailto:support@metaxcoin.cloud"
+                  href={`mailto:${BRAND.SUPPORT_EMAIL}`}
                   className="bg-gradient-to-r from-amber-900 to-metax-gold-dark hover:from-metax-gold-dark hover:to-metax-gold text-white px-8 py-3 rounded-md transition-all duration-200 font-medium"
                 >
                   Email Support
